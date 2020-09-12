@@ -1,12 +1,17 @@
 <template>
     <aside class="menu">
-        Menu
+        Menu <v-icon>mdi-menu</v-icon>
     </aside>
 </template>
 
 <script>
 export default {
-    name: 'Menu'
+    name: 'Menu',
+    methods: {
+        toggleMenu() {
+            this.$store.commit('toggleMenu')
+        }
+    }
 }
 </script>
 

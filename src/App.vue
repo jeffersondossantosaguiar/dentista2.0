@@ -24,7 +24,7 @@ export default {
 
 <style>
 * {
-  font-family: Poppins;
+  font-family: "Poppins";
 }
 
 body {
