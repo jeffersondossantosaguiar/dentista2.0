@@ -23,3 +23,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+### Exemplo menu reativo
+https://github.com/syntacticsolutions/vue-reponsive-navigation
