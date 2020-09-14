@@ -22,9 +22,19 @@ export default {
                 icon: "mdi-home",
             },
             {
+                text: "Agenda",
+                path: "/",
+                icon: "mdi-calendar",
+            },
+            {
                 text: "Pacientes",
                 path: "/pacientes",
                 icon: "mdi-account-group",
+            },
+            {
+                text: "Configurações",
+                path: "/pacientes",
+                icon: "mdi-cogs",
             },
         ],
     }),

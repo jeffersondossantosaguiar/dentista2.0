@@ -10,7 +10,7 @@
       </div> -->
 
       <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
+        <v-icon>mdi-bell</v-icon>
       </v-btn>
 
       <v-btn icon>
@@ -27,6 +27,9 @@ export default {
 </script>
 
 <style>
+.v-icon {
+  margin-right: 10px;
+}
 .header {
   grid-area: header;
   display: flex;
