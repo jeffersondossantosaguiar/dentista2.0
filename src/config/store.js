@@ -14,7 +14,7 @@ export default new Vuex.Store({
             } else {
                 state.isMenuToggle = isToggle
             }
-            console.log('tiggleMenu = ' + state.isMenuToggle);
+            console.log('toggleMenu = ' + state.isMenuToggle);
         }
     }
 })
