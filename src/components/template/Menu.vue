@@ -2,11 +2,7 @@
     <aside class="menu">
         <ul>
             <div class="menu-header">
-                <div>
-                <h1>Odontal</h1>
-                <h2>Odontologia Assistencial</h2>
-                </div>
-                <v-icon>mdi-menu</v-icon>
+                <div>MENU</div>
             </div>
             <li class="menu-line" v-for="(link, index) in navLinks" :key="index">
                 <router-link :to="link.path">
@@ -40,12 +36,12 @@ export default {
     flex-wrap: wrap;
 }
 .menu-header {
-        display: flex;
+    display: flex;
     align-items: center;
+    justify-content: center;
 }
 .menu-header h1 {
-    font-size: 1,2em;
-    
+    font-size: 1, 2em;
 }
 .menu-header h2 {
     font-size: 0.8em;
@@ -59,12 +55,9 @@ export default {
     padding: 20px;
 }
 .menu-line:hover {
-    background-color: #ff5252;
+    background-color: #d8d8d89c;
 }
-.menu-line:hover * {
-    color: #fff;
-}
-.menu a {
+a {
     text-decoration: none;
     align-items: center;
     font-weight: 500;
@@ -75,5 +68,13 @@ export default {
 }
 .menu-icon {
     margin-right: 20px;
+}
+.router-link-exact-active {
+    background-color: #ff5252;
+    color: #fff;
+}
+
+.router-link-exact-active .v-icon {
+    color: #fff;
 }
 </style>

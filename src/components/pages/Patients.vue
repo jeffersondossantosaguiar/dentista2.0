@@ -2,7 +2,7 @@
     <div class="patients">
         <hr />
         <div class="patients-header">
-            <h2>Pacientes</h2>
+            <h2>Lista Pacientes</h2>
             <div>
                 <v-btn icon>
                     <v-icon color="#FF5252" large>mdi-plus-circle</v-icon>

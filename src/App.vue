@@ -23,7 +23,7 @@ export default {
             },
             {
                 text: "Agenda",
-                path: "/",
+                path: "/agenda",
                 icon: "mdi-calendar",
             },
             {
@@ -33,7 +33,7 @@ export default {
             },
             {
                 text: "Configurações",
-                path: "/pacientes",
+                path: "/settings",
                 icon: "mdi-cogs",
             },
         ],

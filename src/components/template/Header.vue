@@ -1,8 +1,8 @@
 <template>
   <div class="header">
     <v-toolbar flat color="#f1f6fc">
-      <v-icon color="#FF5252">mdi-view-dashboard</v-icon>
-      <v-toolbar-title class="v-toolbar-title">ABC</v-toolbar-title>
+      <v-icon>mdi-menu</v-icon>
+      <v-toolbar-title class="v-toolbar-title" v-text="$route.name"></v-toolbar-title>
 
       <v-spacer></v-spacer>
       <!-- <div>
