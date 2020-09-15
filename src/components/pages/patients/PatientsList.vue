@@ -2,8 +2,6 @@
     <div class="patients-list">
         <v-card>
             <v-card-title>
-                Nutrition
-                <v-spacer></v-spacer>
                 <v-text-field
                     v-model="search"
                     append-icon="mdi-magnify"
@@ -11,8 +9,15 @@
                     single-line
                     hide-details
                 ></v-text-field>
+                <v-spacer></v-spacer>
+                <v-btn color="#ff5252" dark> <v-icon left>mdi-account-plus</v-icon> Adicionar Paciente</v-btn>
             </v-card-title>
-            <v-data-table :headers="headers" :items="Patients" :search="search"></v-data-table>
+            <v-data-table :headers="headers" :items="Patients" :search="search">
+                <template v-slot:item.actions="{ item }">
+                    <v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
+                    <v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+                </template>
+            </v-data-table>
         </v-card>
     </div>
 </template>
@@ -30,6 +35,7 @@ export default {
                 { text: "Sobrenome", value: "surname" },
                 { text: "Email", value: "email" },
                 { text: "Telefone", value: "phone" },
+                { text: "Actions", value: "actions", sortable: false },
             ],
             Patients: [],
         };
@@ -48,21 +54,7 @@ export default {
             });
         });
     },
-    methods: {
-        /* deleteUser(id) {
-            if (window.confirm("Do you really want to delete?")) {
-                db.collection("users")
-                    .doc(id)
-                    .delete()
-                    .then(() => {
-                        console.log("Document deleted!");
-                    })
-                    .catch((error) => {
-                        console.error(error);
-                    });
-            }
-        }, */
-    },
+    methods: {},
 };
 </script>
 
