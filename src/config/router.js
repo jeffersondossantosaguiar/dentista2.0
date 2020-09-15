@@ -2,7 +2,9 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '@/components/pages/Home.vue'
 import Agenda from '@/components/pages/Agenda.vue'
-import Patients from '@/components/pages/Patients.vue'
+import PatientsList from '@/components/pages/patients/PatientsList.vue'
+import PatientView from '@/components/pages/patients/PatientView.vue'
+import PatientCreate from '@/components/pages/patients/PatientCreate.vue'
 import Settings from '@/components/pages/Settings.vue'
 
 Vue.use(VueRouter)
@@ -18,7 +20,15 @@ const routes = [{
 }, {
     name: 'Pacientes',
     path: '/pacientes',
-    component: Patients,
+    component: PatientsList,
+}, {
+    name: 'Cadastro de Paciente',
+    path: '/pacientes/cadastro',
+    component: PatientCreate
+}, {
+    name: 'Paciente!',
+    path: '/pacientes/:id',
+    component: PatientView
 }, {
     name: 'Configurações',
     path: '/settings',

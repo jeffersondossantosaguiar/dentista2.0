@@ -1,5 +1,5 @@
 <template>
-    <div class="patients">
+    <div class="patients-list">
         <hr />
         <div class="patients-header">
             <h2>Lista Pacientes</h2>
@@ -29,7 +29,7 @@
 
 <script>
 export default {
-    name: "patients",
+    name: "patients-list",
     data() {
         return {
             search: "",
