@@ -1,5 +1,6 @@
 <template>
     <div class="agenda">
+      <v-card>
         <v-row class="fill-height">
             <v-col>
                 <v-sheet height="64">
@@ -81,6 +82,7 @@
                 </v-sheet>
             </v-col>
         </v-row>
+      </v-card>
     </div>
 </template>
 

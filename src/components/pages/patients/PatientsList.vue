@@ -1,5 +1,6 @@
 <template>
     <div class="patients-list">
+        <PatientCreateForm v-model="dialog" />
         <v-card>
             <v-card-title>
                 <v-text-field
@@ -10,7 +11,9 @@
                     hide-details
                 ></v-text-field>
                 <v-spacer></v-spacer>
-                <v-btn color="#ff5252" dark> <v-icon left>mdi-account-plus</v-icon> Adicionar Paciente</v-btn>
+                <v-btn color="#ff5252" dark @click="dialog = true">
+                    <v-icon left>mdi-account-plus</v-icon>Adicionar Paciente
+                </v-btn>
             </v-card-title>
             <v-data-table :headers="headers" :items="Patients" :search="search">
                 <template v-slot:item.actions="{ item }">
@@ -24,18 +27,21 @@
 
 <script>
 import { db } from "@/config/firebaseDb.js";
+import PatientCreateForm from "@/components/template/PatientCreateForm.vue";
 
 export default {
     name: "patients-list",
+    components: { PatientCreateForm },
     data() {
         return {
+            dialog: false,
             search: "",
             headers: [
                 { text: "Nome", align: "start", sortable: true, value: "name" },
                 { text: "Sobrenome", value: "surname" },
                 { text: "Email", value: "email" },
                 { text: "Telefone", value: "phone" },
-                { text: "Actions", value: "actions", sortable: false },
+                { text: "Ações", value: "actions", sortable: false },
             ],
             Patients: [],
         };

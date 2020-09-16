@@ -2,7 +2,7 @@
     <div id="app">
         <Header />
         <Menu :nav-links="navLinks" />
-        <Content />
+        <Content data-app/>
     </div>
 </template>
 
