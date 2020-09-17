@@ -26,14 +26,13 @@
                                     <v-col cols="12" md="6">
                                         <v-text-field
                                             v-model="paciente.email"
-                                            :rules="emailRules"
                                             label="E-mail"
                                         ></v-text-field>
                                     </v-col>
                                 </v-row>
                                 <v-row>
                                     <v-col cols="12" md="4">
-                                        <v-text-field v-model="paciente.cpf" label="CPF"></v-text-field>
+                                        <v-text-field v-model="paciente.cpf" label="CPF" v-mask="'###.###.###-##'"></v-text-field>
                                     </v-col>
 
                                     <v-col cols="12" md="4">
@@ -54,7 +53,9 @@
                                         <v-text-field
                                             v-model="paciente.endereco.cep"
                                             label="CEP"
+                                            v-mask="'#####-###'"
                                             append-icon="mdi-magnify"
+                                            @click:append="searchCep"
                                         ></v-text-field>
                                     </v-col>
                                 </v-row>
@@ -86,10 +87,11 @@
                                         ></v-text-field>
                                     </v-col>
                                     <v-col cols="6" md="2">
-                                        <v-text-field
+                                        <v-select
                                             v-model="paciente.endereco.uf"
+                                            :items="estados"
                                             label="UF"
-                                        ></v-text-field>
+                                        ></v-select>
                                     </v-col>
                                 </v-row>
                             </v-container>
@@ -100,7 +102,7 @@
                 <v-card-actions>
                     <v-spacer></v-spacer>
                     <v-btn color="blue darken-1" text @click="reset">Resetar</v-btn>
-                    <v-btn color="blue darken-1" text type="submit" @click="onFormSubmit">Salvar</v-btn>
+                    <v-btn :disabled="!valid" color="blue darken-1" text type="submit" @click="onFormSubmit">Salvar</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -108,16 +110,18 @@
 </template>
 
 <script>
-import { db } from "@/config/firebaseDb";
+import { db } from "@/config/firebaseDb"
+import axios from 'axios'
 
 export default {
     name: "patient-create-form",
     props: ["value"],
     data() {
         return {
-            valid: false,
+            dataCep: '',
+            valid: true,
             paciente: {
-                nome: "",
+                name: "",
                 email: "",
                 cpf: "",
                 rg: "",
@@ -128,16 +132,19 @@ export default {
                     numero: "",
                     complemento: "",
                     bairro: "",
-                    uf: "",
+                    uf: "SP",
                 },
             },
-            nameRules: [(v) => !!v || "Requerido"],
-            emailRules: [(v) => /.+@.+/.test(v) || "E-mail inválido"],
+            estados: ["AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RO", "RS", "RR", "SC", "SE", "SP"],
+            nameRules: [(v) => !!v || "Requerido"]
         };
     },
     methods: {
         onFormSubmit(event) {
-            event.preventDefault();
+            this.paciente.cpf = this.paciente.cpf.replace(/[^0-9]/g, "") //remove os caracteres especiais
+            this.paciente.endereco.cep = this.paciente.endereco.cep.replace(/[^0-9]/g, "") //remove os caracteres especiais
+            console.log("TESTE", this.paciente ,db, event);
+            /* event.preventDefault();
             db.collection("pacientes")
                 .add(this.paciente)
                 .then(() => {
@@ -147,11 +154,19 @@ export default {
                 })
                 .catch((error) => {
                     console.log(error);
-                });
+                }); */
         },
         reset() {
             this.$refs.form.reset();
         },
+        async searchCep () {
+            this.paciente.endereco.cep = this.paciente.endereco.cep.replace(/[^0-9]/g, "") //remove os caracteres especiais
+			if(this.paciente.endereco.cep.length == 8) {
+				await axios.get(`https://viacep.com.br/ws/${ this.paciente.endereco.cep }/json/`)
+                .then( response => this.paciente.endereco = response.data )
+                .catch( error => console.log(error) )
+            }
+		}
     },
 };
 </script>

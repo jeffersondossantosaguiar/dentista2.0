@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "@mdi/js": "^5.5.55",
+    "axios": "^0.20.0",
     "core-js": "^3.6.5",
     "firebase": "^7.20.0",
+    "v-mask": "^2.2.3",
     "vue": "^2.6.11",
     "vue-router": "^3.4.3",
     "vuetify": "^2.2.11",

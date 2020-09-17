@@ -34,6 +34,9 @@ export default {
 	components: { PatientCreateForm },
 	data() {
 		return {
+			cep: '',
+			data: '',
+			messageCep: null,
 			dialog: false,
 			search: "",
 			headers: [
@@ -45,8 +48,8 @@ export default {
 			Patients: [],
 		};
 	},
-	created() {
-		db.collection("pacientes").onSnapshot((snapshotChange) => {
+	async created() {
+		await db.collection("pacientes").onSnapshot((snapshotChange) => {
 			this.Patients = [];
 			snapshotChange.forEach((res) => {
 				this.Patients.push({
@@ -57,15 +60,9 @@ export default {
 				});
 			});
 		});
-		// CONSULTA DE ENREÇOS DOS USUÁRIOS
-		/* var enderecos = db.collectionGroup("endereco");
-		enderecos.get().then(function (querySnapshot) {
-			querySnapshot.forEach(function (doc) {
-				console.log(doc.id, " => ", doc.data());
-			});
-		}); */
 	},
-	methods: {},
+	methods: {
+	},
 };
 </script>
 
