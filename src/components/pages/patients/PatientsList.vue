@@ -38,9 +38,8 @@ export default {
 			search: "",
 			headers: [
 				{ text: "Nome", align: "start", sortable: true, value: "name" },
-				{ text: "Sobrenome", value: "surname" },
-				{ text: "Email", value: "email" },
 				{ text: "Telefone", value: "phone" },
+				{ text: "Email", value: "email" },
 				{ text: "Ações", value: "actions", sortable: false },
 			],
 			Patients: [],
@@ -53,18 +52,18 @@ export default {
 				this.Patients.push({
 					key: res.id,
 					name: res.data().nome,
-					surname: res.data().sobrenome,
-					email: res.data().email,
 					phone: res.data().telefone,
+					email: res.data().email,
 				});
 			});
 		});
-		var museums = db.collectionGroup("endereco");
-		museums.get().then(function (querySnapshot) {
+		// CONSULTA DE ENREÇOS DOS USUÁRIOS
+		/* var enderecos = db.collectionGroup("endereco");
+		enderecos.get().then(function (querySnapshot) {
 			querySnapshot.forEach(function (doc) {
 				console.log(doc.id, " => ", doc.data());
 			});
-		});
+		}); */
 	},
 	methods: {},
 };
