@@ -11,9 +11,4 @@ export default {
 </script>
 
 <style>
-    .content {
-        grid-area: content;
-        background-color: #F1F6FC;
-        padding: 20px;
-    }
 </style>
