@@ -121,7 +121,7 @@ export default {
             dataCep: '',
             valid: true,
             paciente: {
-                name: "",
+                nome: "",
                 email: "",
                 cpf: "",
                 rg: "",
@@ -136,28 +136,32 @@ export default {
                 },
             },
             estados: ["AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RO", "RS", "RR", "SC", "SE", "SP"],
-            nameRules: [(v) => !!v || "Requerido"]
+            nameRules: [(v) => !!v || "Requerido"],
         };
     },
     methods: {
         onFormSubmit(event) {
             this.paciente.cpf = this.paciente.cpf.replace(/[^0-9]/g, "") //remove os caracteres especiais
             this.paciente.endereco.cep = this.paciente.endereco.cep.replace(/[^0-9]/g, "") //remove os caracteres especiais
-            console.log("TESTE", this.paciente ,db, event);
-            /* event.preventDefault();
+            event.preventDefault();
             db.collection("pacientes")
                 .add(this.paciente)
                 .then(() => {
                     alert("Paciente cadastrado");
-                    this.paciente.name = "";
-                    this.paciente.email = "";
+                    this.paciente.name;
+                    this.paciente.email;
+                    this.closeDialog()
+                    this.reset()
                 })
                 .catch((error) => {
                     console.log(error);
-                }); */
+                })
         },
         reset() {
             this.$refs.form.reset();
+        },
+        closeDialog() {
+            this.$emit('input')
         },
         async searchCep () {
             this.paciente.endereco.cep = this.paciente.endereco.cep.replace(/[^0-9]/g, "") //remove os caracteres especiais

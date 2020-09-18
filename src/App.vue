@@ -33,7 +33,6 @@ import Content from "./components/template/Content";
 export default {
 	name: "App",
 	components: { Content },
-	props: {},
 	data: () => ({
         drawer: null,
         miniVariant: false,

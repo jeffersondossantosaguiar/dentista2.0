@@ -11,7 +11,7 @@
 					hide-details
 				></v-text-field>
 				<v-spacer></v-spacer>
-				<v-btn color="#ff5252" dark @click="dialog = true">
+				<v-btn color="primary" dark @click="dialog = true">
 					<v-icon left>mdi-account-plus</v-icon>Adicionar Paciente
 				</v-btn>
 			</v-card-title>
@@ -67,21 +67,4 @@ export default {
 </script>
 
 <style>
-.patients-header {
-	display: flex;
-	align-items: center;
-	justify-content: space-between;
-}
-.patients-header h2 {
-	font-weight: 500;
-	font-size: 1.2rem;
-	margin-left: 20px;
-}
-hr {
-	border-top: 1px solid #dfdfdf;
-	margin: 10px 0px;
-}
-.text-start {
-	text-align: left;
-}
 </style>
