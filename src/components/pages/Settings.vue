@@ -1,6 +1,8 @@
 <template>
     <div class="settings">
-        settings
+        <v-card>
+            Configurações
+        </v-card>
     </div>
 </template>
 

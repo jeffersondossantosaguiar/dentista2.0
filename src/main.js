@@ -6,12 +6,14 @@ Vue.directive('mask', VueMaskDirective);
 
 import store from './config/store'
 import router from './config/router'
+import vueToast from './plugins/vueToast'
 
 Vue.config.productionTip = false
 
 new Vue({
   store,
   router,
+  vueToast,
   vuetify,
   render: h => h(App)
 }).$mount('#app')

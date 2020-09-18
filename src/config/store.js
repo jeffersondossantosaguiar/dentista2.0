@@ -5,16 +5,17 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
     state: {
-        isMenuToggle: false
+        /* isMenuToggle: false, */
+        patient: {}
     },
     mutations: {
-        toggleMenu(state, isToggle) {
+        /* toggleMenu(state, isToggle) {
             if(isToggle === undefined) {
                 state.isMenuToggle = !state.isMenuToggle
             } else {
                 state.isMenuToggle = isToggle
             }
             console.log('toggleMenu = ' + state.isMenuToggle);
-        }
+        } */
     }
 })

@@ -1,6 +1,8 @@
 <template>
     <div class="home">
-        Home
+        <v-card>
+            Home
+        </v-card>
     </div>
 </template>
 

@@ -15,10 +15,10 @@
 					<v-icon left>mdi-account-plus</v-icon>Adicionar Paciente
 				</v-btn>
 			</v-card-title>
-			<v-data-table :headers="headers" :items="Patients" :search="search">
+			<v-data-table class="row-pointer" :headers="headers" :items="Patients" :search="search">
 				<template v-slot:item.actions="{ item }">
-					<v-icon small class="mr-2" @click="editItem(item)">mdi-pencil</v-icon>
-					<v-icon small @click="deleteItem(item)">mdi-delete</v-icon>
+					<v-icon small class="mr-2" @click="editPatient(item)">mdi-pencil</v-icon>
+					<!-- <v-icon small @click="deleteItem(item)">mdi-delete</v-icon> -->
 				</template>
 			</v-data-table>
 		</v-card>
@@ -53,7 +53,7 @@ export default {
 			this.Patients = [];
 			snapshotChange.forEach((res) => {
 				this.Patients.push({
-					key: res.id,
+					id: res.id,
 					name: res.data().nome,
 					phone: res.data().telefone,
 					email: res.data().email,
@@ -62,9 +62,16 @@ export default {
 		});
 	},
 	methods: {
+		editPatient(patient) {
+			this.$router.push({path: `/pacientes/${patient.id}`})
+			this.$store.state.patient = patient
+		}
 	},
 };
 </script>
 
 <style>
+/* tbody:hover {
+  cursor: pointer;
+} */
 </style>

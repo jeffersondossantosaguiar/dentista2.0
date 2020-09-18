@@ -42,7 +42,7 @@
                                     <v-col cols="12" md="4">
                                         <v-text-field
                                             v-model="paciente.telefone"
-                                            :rules="nameRules"
+                                            :rules="phoneRules"
                                             label="Telefone*"
                                             required
                                         ></v-text-field>
@@ -137,6 +137,10 @@ export default {
             },
             estados: ["AC", "AL", "AM", "AP", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS", "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RO", "RS", "RR", "SC", "SE", "SP"],
             nameRules: [(v) => !!v || "Requerido"],
+            phoneRules: [
+                v => !!v || "Requerido",
+                v => /^[0-9]*$/.test(v) || 'Numero inválido'
+                ]
         };
     },
     methods: {
@@ -147,9 +151,12 @@ export default {
             db.collection("pacientes")
                 .add(this.paciente)
                 .then(() => {
-                    alert("Paciente cadastrado");
-                    this.paciente.name;
-                    this.paciente.email;
+                    this.$toast.open({
+                        message: 'Paciente Cadastrado',
+                        type: 'success',
+                        position: 'top-right',
+                        duration: 3000,
+                    });
                     this.closeDialog()
                     this.reset()
                 })

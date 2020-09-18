@@ -21,9 +21,10 @@ const routes = [{
     path: '/pacientes',
     component: PatientsList,
 }, {
-    name: 'Paciente!',
+    name: 'Paciente',
     path: '/pacientes/:id',
-    component: PatientView
+    component: PatientView,
+    props: true
 }, {
     name: 'Configurações',
     path: '/settings',
