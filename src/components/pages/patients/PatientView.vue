@@ -1,65 +1,97 @@
 <template>
-    <div class="patient-view d-flex flex-wrap">
-        <!-- <h1>{{ $route.params.id }}</h1>
-        <h1>{{this.$store.state.patient.name}}</h1>-->
-        <v-card class="patient-photo">Foto</v-card>
-        <v-card class="patient-data">Dados</v-card>
-        <v-card class="patient-historic">Histórico</v-card>
-        <v-card class="patient-notes">Notas</v-card>
-        <v-card class="patient-files">Arquivos</v-card>
+	<v-container id="patient-view" fluid tag="section">
+		<v-row justify="center">
+			<v-col cols="12" md="8">
+				<v-card>
+					<template v-slot:heading>
+						<div class="display-2 font-weight-light">Edit Profile</div>
 
-        <v-container fluid>
-      <v-row dense>
-        <v-col
-          v-for="card in cards"
-          :key="card.title"
-          :cols="card.flex"
-        >
-          <v-card>
-            <v-img
-              :src="card.src"
-              class="white--text align-end"
-              gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="200px"
-            >
-              <v-card-title v-text="card.title"></v-card-title>
-            </v-img>
+						<div class="subtitle-1 font-weight-light">Complete your profile</div>
+					</template>
 
-            <v-card-actions>
-              <v-spacer></v-spacer>
+					<v-form>
+						<v-container class="py-0">
+							<v-row>
+								<v-col cols="12" md="4">
+									<v-text-field label="Company (disabled)" disabled />
+								</v-col>
 
-              <v-btn icon>
-                <v-icon>mdi-heart</v-icon>
-              </v-btn>
+								<v-col cols="12" md="4">
+									<v-text-field class="purple-input" label="User Name" />
+								</v-col>
 
-              <v-btn icon>
-                <v-icon>mdi-bookmark</v-icon>
-              </v-btn>
+								<v-col cols="12" md="4">
+									<v-text-field label="Email Address" class="purple-input" />
+								</v-col>
 
-              <v-btn icon>
-                <v-icon>mdi-share-variant</v-icon>
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
-    </v-container>
-    </div>
+								<v-col cols="12" md="6">
+									<v-text-field label="First Name" class="purple-input" />
+								</v-col>
+
+								<v-col cols="12" md="6">
+									<v-text-field label="Last Name" class="purple-input" />
+								</v-col>
+
+								<v-col cols="12">
+									<v-text-field label="Adress" class="purple-input" />
+								</v-col>
+
+								<v-col cols="12" md="4">
+									<v-text-field label="City" class="purple-input" />
+								</v-col>
+
+								<v-col cols="12" md="4">
+									<v-text-field label="Country" class="purple-input" />
+								</v-col>
+
+								<v-col cols="12" md="4">
+									<v-text-field class="purple-input" label="Postal Code" type="number" />
+								</v-col>
+
+								<v-col cols="12">
+									<v-textarea
+										class="purple-input"
+										label="About Me"
+										value="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+									/>
+								</v-col>
+
+								<v-col cols="12" class="text-right">
+									<v-btn color="success" class="mr-0">Update Profile</v-btn>
+								</v-col>
+							</v-row>
+						</v-container>
+					</v-form>
+				</v-card>
+			</v-col>
+
+			<v-col cols="12" md="4">
+				<v-card
+					class="v-card-profile"
+					avatar="https://demos.creative-tim.com/vue-material-dashboard/img/marc.aba54d65.jpg"
+				>
+					<v-card-text class="text-center">
+						<h6 class="display-1 mb-1 grey--text">CEO / CO-FOUNDER</h6>
+
+						<h4 class="display-2 font-weight-light mb-3 black--text">Alec Thompson</h4>
+
+						<p
+							class="font-weight-light grey--text"
+						>Don't be scared of the truth because we need to restart the human foundation in truth And I love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...</p>
+
+						<v-btn color="success" rounded class="mr-0">Follow</v-btn>
+					</v-card-text>
+				</v-card>
+			</v-col>
+		</v-row>
+	</v-container>
 </template>
 
 <script>
 export default {
-    name: "patient-view",
-    data: () => ({
-      cards: [
-        { title: 'Pre-fab homes', src: 'https://cdn.vuetifyjs.com/images/cards/house.jpg', flex: 12 },
-        { title: 'Favorite road trips', src: 'https://cdn.vuetifyjs.com/images/cards/road.jpg', flex: 6 },
-        { title: 'Best airlines', src: 'https://cdn.vuetifyjs.com/images/cards/plane.jpg', flex: 6 },
-      ],
-    }),
+	name: "patient-view",
 };
 </script>
 
 <style>
-
 </style>
