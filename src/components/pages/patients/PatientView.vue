@@ -1,55 +1,69 @@
 <template>
 	<v-container class="patient-view">
+		<PatientCreateForm v-model="dialog" />
+		<v-container class="d-flex text-center align-self-center">
+			{{this.$route.path}}
+			<v-spacer></v-spacer>
+			<v-btn text small color="primary">
+				<v-icon>mdi-printer</v-icon>
+			</v-btn>
+			<v-btn text small color="primary" @click="dialog = true">
+				<v-icon>mdi-account-edit</v-icon>Editar Paciente
+			</v-btn>
+		</v-container>
 		<v-row>
 			<v-col cols="12" md="3">
 				<v-card class="v-card-profile d-flex">
 					<v-container class="text-center align-self-center">
 						<v-avatar class="avatar rounded-circle" rounded="true" size="100">
-							<img src="https://lnb.com.br/wp-content/uploads/2016/03/Joselito-Sem-No%C3%A7%C3%A3o-400x406.jpg" alt="Joselito" />
+							<img
+								src="https://lnb.com.br/wp-content/uploads/2016/03/Joselito-Sem-No%C3%A7%C3%A3o-400x406.jpg"
+								alt="Joselito"
+							/>
 						</v-avatar>
-						<h3 class="pt-5">Joselito Muito Loko</h3>
-						<p>joselito@gmail.com</p>
-						<p>(15) 99858-4120</p>
+						<h3 class="pt-5">{{paciente.nome}} </h3>
+						<p>{{paciente.email}}</p>
+						<p>{{paciente.telefone}}</p>
 					</v-container>
 				</v-card>
 			</v-col>
 			<v-col cols="12" md="5">
 				<v-card class="v-card-data">
-                    <v-card-title class="v-card-title">Dados</v-card-title>
-                    <v-container class="d-flex">
-					<v-container class="align-self-center">
-						<v-container class="d-flex v-card__text pl-4 pt-5">
-							<v-container>
-								<subtitle-1 class="font-weight-medium">Logradouro</subtitle-1>
-								<p>Rua Jovelina Maria de Brito, 267</p>
+					<v-card-title class="v-card-title">Dados</v-card-title>
+					<v-container class="d-flex">
+						<v-container class="align-self-center">
+							<v-container class="d-flex v-card__text pl-4 pt-5">
+								<v-container>
+									<strong class="font-weight-medium">Logradouro</strong>
+									<p>Rua Jovelina Maria de Brito, 267</p>
+								</v-container>
+								<v-container>
+									<strong class="font-weight-medium">Bairro</strong>
+									<p>Jardim Nova Esperança</p>
+								</v-container>
 							</v-container>
-							<v-container>
-								<subtitle-1 class="font-weight-medium">Bairro</subtitle-1>
-								<p>Jardim Nova Esperança</p>
+							<v-container class="d-flex v-card__text pl-4 pt-5">
+								<v-container>
+									<strong class="font-weight-medium">Cidade</strong>
+									<p>Sorocaba - SP</p>
+								</v-container>
+								<v-container>
+									<strong class="font-weight-medium">CEP</strong>
+									<p>18061-459</p>
+								</v-container>
 							</v-container>
-						</v-container>
-						<v-container class="d-flex v-card__text pl-4 pt-5">
-							<v-container>
-								<subtitle-1 class="font-weight-medium">Cidade</subtitle-1>
-								<p>Sorocaba - SP</p>
-							</v-container>
-							<v-container>
-								<subtitle-1 class="font-weight-medium">CEP</subtitle-1>
-								<p>18061-459</p>
-							</v-container>
-						</v-container>
-						<v-container class="d-flex v-card__text pl-4 pt-5">
-							<v-container>
-								<subtitle-1 class="font-weight-medium">Status do Paciente</subtitle-1>
-								<p>Ativo</p>
-							</v-container>
-							<v-container>
-								<subtitle-1 class="font-weight-medium">Data de Registro</subtitle-1>
-								<p>22 de Setembro de 2020</p>
+							<v-container class="d-flex v-card__text pl-4 pt-5">
+								<v-container>
+									<strong class="font-weight-medium">Status do Paciente</strong>
+									<p>Ativo</p>
+								</v-container>
+								<v-container>
+									<strong class="font-weight-medium">Data de Registro</strong>
+									<p>22 de Setembro de 2020</p>
+								</v-container>
 							</v-container>
 						</v-container>
 					</v-container>
-                    </v-container>
 				</v-card>
 			</v-col>
 
@@ -118,10 +132,12 @@
 			<v-col cols="12" md="4">
 				<v-card class="v-card-files">
 					<v-card-title class="v-card-title">
-                        Arquivos / Documentos / Exames 
-                        <v-spacer></v-spacer>
-                        <v-btn text color="primary"><v-icon left>mdi-file-plus</v-icon>Upload</v-btn>
-                    </v-card-title>
+						Arquivos / Documentos / Exames
+						<v-spacer></v-spacer>
+						<v-btn text color="primary">
+							<v-icon left>mdi-file-plus</v-icon>Upload
+						</v-btn>
+					</v-card-title>
 					<v-card-text class="text-center">
 						<v-list class="files-list">
 							<v-list-item v-for="item in items2" :key="item.title">
@@ -148,10 +164,15 @@
 </template>
 
 <script>
+import { db } from "@/config/firebaseDb.js"
+import PatientCreateForm from "@/components/template/PatientCreateForm.vue"
+
 export default {
 	name: "patient-view",
+	components: { PatientCreateForm },
 	data: () => ({
-		files: [],
+		paciente: {},
+		dialog: false,
 		items2: [
 			{
 				icon: "mdi-file-document",
@@ -164,33 +185,17 @@ export default {
 				iconClass: "amber white--text",
 				title: "Kitchen remodel",
 				subtitle: "Jan 10, 2014",
-			},
-			{
-				icon: "mdi-file-document",
-				iconClass: "blue white--text",
-				title: "Vacation itinerary",
-				subtitle: "Jan 20, 2014",
-			},
-			{
-				icon: "mdi-image",
-				iconClass: "amber white--text",
-				title: "Kitchen remodel",
-				subtitle: "Jan 10, 2014",
-			},
-			{
-				icon: "mdi-file-document",
-				iconClass: "blue white--text",
-				title: "Vacation itinerary",
-				subtitle: "Jan 20, 2014",
-			},
-			{
-				icon: "mdi-image",
-				iconClass: "amber white--text",
-				title: "Kitchen remodel",
-				subtitle: "Jan 10, 2014",
-			},
+			}
 		],
 	}),
+	created() {
+		let dbRef = db.collection('pacientes').doc(this.$route.params.id);
+            dbRef.get().then((doc) => {
+				this.paciente = doc.data();
+            }).catch((error) => {
+                console.log(error)
+            })
+	}
 };
 </script>
 

@@ -22,8 +22,8 @@
                 :search="search"
             >
                 <template v-slot:item.actions="{ item }">
-                    <v-icon small class="mr-2" @click="editPatient(item)"
-                        >mdi-pencil</v-icon
+                    <v-icon color="primary" fab small dark @click="editPatient(item)"
+                        >mdi-account</v-icon
                     >
                     <!-- <v-icon small @click="deleteItem(item)">mdi-delete</v-icon> -->
                 </template>
