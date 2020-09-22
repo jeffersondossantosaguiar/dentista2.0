@@ -15,7 +15,7 @@
 
 		<v-app-bar app color="indigo" dark>
 			<v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-			<v-icon large class="account-icon" v-if="$route.name === 'Paciente'">mdi-account-outline</v-icon>
+			<v-icon large class="account-icon" v-if="$route.name === 'Paciente'">mdi-account</v-icon>
 			<v-toolbar-title v-if="$route.name === 'Paciente'" v-text="this.$store.state.patient.name"></v-toolbar-title>
 			<v-toolbar-title v-else v-text="$route.name"></v-toolbar-title>
 		</v-app-bar>

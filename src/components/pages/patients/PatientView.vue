@@ -1,172 +1,233 @@
 <template>
-    <v-container class="patient-view">
-        <v-row>
-            <v-col cols="12" md="3">
-                <v-card class="v-card-profile" justify="center" align="center">
-                    <v-avatar
-                        class="avatar rounded-circle"
-                        rounded="true"
-                        size="100"
-                    >
-                        <img
-                            src="https://cdn.vuetifyjs.com/images/john.jpg"
-                            alt="John"
-                        />
-                    </v-avatar>
-                    <h2>Joselito Muito Loko</h2>
-                    <p>
-                        joselito@gmail.com
-                    </p>
-                </v-card>
-            </v-col>
-            <v-col cols="12" md="5">
-                <v-card class="v-card-data">
-                    <p class="font-weight-light grey--text">
-                        Don't be scared of the truth because we need to restart
-                        the human foundation in truth And I love you like Kanye
-                        loves Kanye I love Rick Owens’ bed design but the back
-                        is...
-                    </p>
-                </v-card>
-            </v-col>
+	<v-container class="patient-view">
+		<v-row>
+			<v-col cols="12" md="3">
+				<v-card class="v-card-profile d-flex">
+					<v-container class="text-center align-self-center">
+						<v-avatar class="avatar rounded-circle" rounded="true" size="100">
+							<img src="https://lnb.com.br/wp-content/uploads/2016/03/Joselito-Sem-No%C3%A7%C3%A3o-400x406.jpg" alt="Joselito" />
+						</v-avatar>
+						<h3 class="pt-5">Joselito Muito Loko</h3>
+						<p>joselito@gmail.com</p>
+						<p>(15) 99858-4120</p>
+					</v-container>
+				</v-card>
+			</v-col>
+			<v-col cols="12" md="5">
+				<v-card class="v-card-data">
+                    <v-card-title class="v-card-title">Dados</v-card-title>
+                    <v-container class="d-flex">
+					<v-container class="align-self-center">
+						<v-container class="d-flex v-card__text pl-4 pt-5">
+							<v-container>
+								<subtitle-1 class="font-weight-medium">Logradouro</subtitle-1>
+								<p>Rua Jovelina Maria de Brito, 267</p>
+							</v-container>
+							<v-container>
+								<subtitle-1 class="font-weight-medium">Bairro</subtitle-1>
+								<p>Jardim Nova Esperança</p>
+							</v-container>
+						</v-container>
+						<v-container class="d-flex v-card__text pl-4 pt-5">
+							<v-container>
+								<subtitle-1 class="font-weight-medium">Cidade</subtitle-1>
+								<p>Sorocaba - SP</p>
+							</v-container>
+							<v-container>
+								<subtitle-1 class="font-weight-medium">CEP</subtitle-1>
+								<p>18061-459</p>
+							</v-container>
+						</v-container>
+						<v-container class="d-flex v-card__text pl-4 pt-5">
+							<v-container>
+								<subtitle-1 class="font-weight-medium">Status do Paciente</subtitle-1>
+								<p>Ativo</p>
+							</v-container>
+							<v-container>
+								<subtitle-1 class="font-weight-medium">Data de Registro</subtitle-1>
+								<p>22 de Setembro de 2020</p>
+							</v-container>
+						</v-container>
+					</v-container>
+                    </v-container>
+				</v-card>
+			</v-col>
 
-            <v-col cols="12" md="4">
-                <v-card class="v-card-notes">
-                    <v-card-title class="v-card-title">
-                        Notas
+			<v-col cols="12" md="4">
+				<v-card class="v-card-notes">
+					<v-card-title class="v-card-title">Notas</v-card-title>
+					<v-card-text class="text-center">
+						<v-textarea
+							outlined
+							name="input-7-4"
+							label="Notas do Paciente"
+							value="Paciente sente dores ao mastigar..."
+						></v-textarea>
+						<v-btn color="primary">Salvar</v-btn>
+					</v-card-text>
+				</v-card>
+			</v-col>
+		</v-row>
+		<v-row>
+			<v-col cols="12" md="8">
+				<v-card class="v-card-historic overflow-y-auto">
+					<v-card-title class="v-card-title">Histórico</v-card-title>
+					<v-timeline dense class="v-timeline">
+						<v-timeline-item fill-dot small>
+							<v-card class="elevation-2">
+								<v-card-title class="headline">Lorem ipsum</v-card-title>
+								<v-card-text>
+									Lorem ipsum dolor sit amet, no nam oblique
+									veritus. Commune scaevola imperdiet nec ut,
+									sed euismod convenire principes at. Est et
+									nobis iisque percipit, an vim zril
+									disputando voluptatibus, vix an salutandi
+									sententiae.
+								</v-card-text>
+							</v-card>
+						</v-timeline-item>
+						<v-timeline-item fill-dot small>
+							<v-card class="elevation-2">
+								<v-card-title class="headline">Lorem ipsum</v-card-title>
+								<v-card-text>
+									Lorem ipsum dolor sit amet, no nam oblique
+									veritus. Commune scaevola imperdiet nec ut,
+									sed euismod convenire principes at. Est et
+									nobis iisque percipit, an vim zril
+									disputando voluptatibus, vix an salutandi
+									sententiae.
+								</v-card-text>
+							</v-card>
+						</v-timeline-item>
+						<v-timeline-item fill-dot small>
+							<v-card class="elevation-2">
+								<v-card-title class="headline">Lorem ipsum</v-card-title>
+								<v-card-text>
+									Lorem ipsum dolor sit amet, no nam oblique
+									veritus. Commune scaevola imperdiet nec ut,
+									sed euismod convenire principes at. Est et
+									nobis iisque percipit, an vim zril
+									disputando voluptatibus, vix an salutandi
+									sententiae.
+								</v-card-text>
+							</v-card>
+						</v-timeline-item>
+					</v-timeline>
+				</v-card>
+			</v-col>
+			<v-col cols="12" md="4">
+				<v-card class="v-card-files">
+					<v-card-title class="v-card-title">
+                        Arquivos / Documentos / Exames 
+                        <v-spacer></v-spacer>
+                        <v-btn text color="primary"><v-icon left>mdi-file-plus</v-icon>Upload</v-btn>
                     </v-card-title>
-                    <v-card-text class="text-center">
-                        <v-textarea
-                            outlined
-                            name="input-7-4"
-                            label="Outlined textarea"
-                            value="The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
-                        ></v-textarea>
-                        <v-btn color="success" rounded class="mr-0"
-                            >Salvar</v-btn
-                        >
-                    </v-card-text>
-                </v-card>
-            </v-col>
-        </v-row>
-        <v-row>
-            <v-col cols="12" md="8">
-                <v-card class="v-card-historic overflow-y-auto">
-                    <v-card-title class="v-card-title">
-                        Notas
-                    </v-card-title>                        
-                    <v-timeline dense class="v-timeline">
-                        <v-timeline-item>
-                            <v-card class="elevation-2">
-                                <v-card-title class="headline">Lorem ipsum</v-card-title>
-                                <v-card-text>
-                                    Lorem ipsum dolor sit amet, no nam oblique
-                                    veritus. Commune scaevola imperdiet nec ut,
-                                    sed euismod convenire principes at. Est et
-                                    nobis iisque percipit, an vim zril
-                                    disputando voluptatibus, vix an salutandi
-                                    sententiae.
-                                </v-card-text>
-                            </v-card>
-                        </v-timeline-item>
-                        <v-timeline-item>
-                            <v-card class="elevation-2">
-                                <v-card-title class="headline">Lorem ipsum</v-card-title>
-                                <v-card-text>
-                                    Lorem ipsum dolor sit amet, no nam oblique
-                                    veritus. Commune scaevola imperdiet nec ut,
-                                    sed euismod convenire principes at. Est et
-                                    nobis iisque percipit, an vim zril
-                                    disputando voluptatibus, vix an salutandi
-                                    sententiae.
-                                </v-card-text>
-                            </v-card>
-                        </v-timeline-item>
-                        <v-timeline-item>
-                            <v-card class="elevation-2">
-                                <v-card-title class="headline">Lorem ipsum</v-card-title>
-                                <v-card-text>
-                                    Lorem ipsum dolor sit amet, no nam oblique
-                                    veritus. Commune scaevola imperdiet nec ut,
-                                    sed euismod convenire principes at. Est et
-                                    nobis iisque percipit, an vim zril
-                                    disputando voluptatibus, vix an salutandi
-                                    sententiae.
-                                </v-card-text>
-                            </v-card>
-                        </v-timeline-item>
-                        <v-timeline-item>timeline item</v-timeline-item>
-                        <v-timeline-item>timeline item</v-timeline-item>
-                    </v-timeline>
-                </v-card>
-            </v-col>
-            <v-col cols="12" md="4">
-                <v-card class="v-card-files">
-                    <v-card-title class="v-card-title">
-                        Arquivos / Documentos
-                    </v-card-title>
-                    <v-card-text class="text-center">
-                        <h6 class="display-1 mb-1 grey--text"></h6>
+					<v-card-text class="text-center">
+						<v-list class="files-list">
+							<v-list-item v-for="item in items2" :key="item.title">
+								<v-list-item-avatar>
+									<v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
+								</v-list-item-avatar>
+								<v-list-item-content class="text-left">
+									<v-list-item-title v-text="item.title"></v-list-item-title>
+									<v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle>
+								</v-list-item-content>
 
-                        <h4
-                            class="display-2 font-weight-light mb-3 black--text"
-                        >
-                            Alec Thompson
-                        </h4>
-
-                        <p class="font-weight-light grey--text">
-                            Don't be scared of the truth because we need to
-                            restart the human foundation in truth And I love you
-                            like Kanye loves Kanye I love Rick Owens’ bed design
-                            but the back is...
-                        </p>
-
-                        <v-btn color="success" rounded class="mr-0"
-                            >Follow</v-btn
-                        >
-                    </v-card-text>
-                </v-card>
-            </v-col>
-        </v-row>
-    </v-container>
+								<v-list-item-action>
+									<v-btn icon>
+										<v-icon color="grey lighten-1">mdi-information</v-icon>
+									</v-btn>
+								</v-list-item-action>
+							</v-list-item>
+						</v-list>
+					</v-card-text>
+				</v-card>
+			</v-col>
+		</v-row>
+	</v-container>
 </template>
 
 <script>
 export default {
-    name: "patient-view"
-}
+	name: "patient-view",
+	data: () => ({
+		files: [],
+		items2: [
+			{
+				icon: "mdi-file-document",
+				iconClass: "blue white--text",
+				title: "Vacation itinerary",
+				subtitle: "Jan 20, 2014",
+			},
+			{
+				icon: "mdi-image",
+				iconClass: "amber white--text",
+				title: "Kitchen remodel",
+				subtitle: "Jan 10, 2014",
+			},
+			{
+				icon: "mdi-file-document",
+				iconClass: "blue white--text",
+				title: "Vacation itinerary",
+				subtitle: "Jan 20, 2014",
+			},
+			{
+				icon: "mdi-image",
+				iconClass: "amber white--text",
+				title: "Kitchen remodel",
+				subtitle: "Jan 10, 2014",
+			},
+			{
+				icon: "mdi-file-document",
+				iconClass: "blue white--text",
+				title: "Vacation itinerary",
+				subtitle: "Jan 20, 2014",
+			},
+			{
+				icon: "mdi-image",
+				iconClass: "amber white--text",
+				title: "Kitchen remodel",
+				subtitle: "Jan 10, 2014",
+			},
+		],
+	}),
+};
 </script>
 
 <style>
-.v-timeline{
-    padding-right: 20px;
+.v-timeline {
+	height: 300px;
+	overflow-y: auto;
+}
+.files-list {
+	height: 250px;
+	overflow-y: auto;
+}
+.v-timeline {
+	padding-right: 20px;
 }
 .v-card-title {
-    font-size: 0.9em;
+	font-size: 0.9em;
 }
 .notas {
-    text-align: start;
+	text-align: start;
 }
 .container {
-    padding: 0;
-}
-.avatar {
-    margin-top: 10px;
+	padding: 0;
 }
 .v-card-profile {
-    min-height: 350px;
+	min-height: 350px;
 }
 .v-card-data {
-    min-height: 350px;
+	min-height: 350px;
 }
 .v-card-notes {
-    min-height: 350px;
+	min-height: 350px;
 }
 .v-card-historic {
-    min-height: 350px;
-    max-height: 350px;
+	min-height: 350px;
 }
 .v-card-files {
-    min-height: 350px;
+	min-height: 350px;
 }
 </style>
