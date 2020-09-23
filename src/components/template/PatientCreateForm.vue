@@ -1,6 +1,7 @@
 <template>
     <div class="patient-create-form">
-        <v-dialog :value="value" persistent width="900px">
+        <v-dialog :value="value" :editedPatient="editedPatient" persistent width="900px">
+            {{editedPatient}}
             <v-card>
                 <v-card-title>
                     <span class="headline">Cadastro Paciente</span>
@@ -115,7 +116,7 @@ import axios from 'axios'
 
 export default {
     name: "patient-create-form",
-    props: ["value"],
+    props: ["value", "editedPatient"],
     data() {
         return {
             dataCep: '',
@@ -167,9 +168,6 @@ export default {
         reset() {
             this.$refs.form.reset();
         },
-        closeDialog() {
-            this.$emit('input')
-        },
         async searchCep () {
             this.paciente.endereco.cep = this.paciente.endereco.cep.replace(/[^0-9]/g, "") //remove os caracteres especiais
 			if(this.paciente.endereco.cep.length == 8) {
@@ -177,8 +175,8 @@ export default {
                 .then( response => this.paciente.endereco = response.data )
                 .catch( error => console.log(error) )
             }
-		}
-    },
+        }
+    }
 };
 </script>
 

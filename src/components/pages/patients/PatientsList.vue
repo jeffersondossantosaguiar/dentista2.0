@@ -71,7 +71,6 @@ export default {
     methods: {
         editPatient(patient) {
             this.$router.push({ path: `/pacientes/${patient.id}` })
-            this.$store.state.patient = patient
         }
     }
 }

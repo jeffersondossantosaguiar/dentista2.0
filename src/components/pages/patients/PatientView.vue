@@ -1,13 +1,13 @@
 <template>
 	<v-container class="patient-view">
-		<PatientCreateForm v-model="dialog" />
+		<PatientCreateForm v-model="dialog" :editedPatient="editedPatient"/>
 		<v-container class="d-flex text-center align-self-center">
 			{{this.$route.path}}
 			<v-spacer></v-spacer>
 			<v-btn text small color="primary">
 				<v-icon>mdi-printer</v-icon>
 			</v-btn>
-			<v-btn text small color="primary" @click="dialog = true">
+			<v-btn text small color="primary" @click="editPatient(paciente)">
 				<v-icon>mdi-account-edit</v-icon>Editar Paciente
 			</v-btn>
 		</v-container>
@@ -173,6 +173,7 @@ export default {
 	data: () => ({
 		paciente: {},
 		dialog: false,
+		editedPatient: null,
 		items2: [
 			{
 				icon: "mdi-file-document",
@@ -191,10 +192,17 @@ export default {
 	created() {
 		let dbRef = db.collection('pacientes').doc(this.$route.params.id);
             dbRef.get().then((doc) => {
-				this.paciente = doc.data();
+				this.paciente = doc.data()
             }).catch((error) => {
                 console.log(error)
-            })
+			})
+	},
+	methods: {
+		editPatient(paciente) {
+			/* console.log(paciente); */
+		this.editedPatient = paciente
+        this.dialog = !this.dialog
+		}
 	}
 };
 </script>
