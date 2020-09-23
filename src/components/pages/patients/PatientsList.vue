@@ -22,7 +22,7 @@
                 :search="search"
             >
                 <template v-slot:item.actions="{ item }">
-                    <v-icon color="primary" fab small dark @click="editPatient(item)"
+                    <v-icon color="primary" fab small dark @click="viewPatient(item)"
                         >mdi-account</v-icon
                     >
                     <!-- <v-icon small @click="deleteItem(item)">mdi-delete</v-icon> -->
@@ -69,7 +69,7 @@ export default {
         })
     },
     methods: {
-        editPatient(patient) {
+        viewPatient(patient) {
             this.$router.push({ path: `/pacientes/${patient.id}` })
         }
     }

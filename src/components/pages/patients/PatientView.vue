@@ -199,9 +199,8 @@ export default {
 	},
 	methods: {
 		editPatient(paciente) {
-			/* console.log(paciente); */
-		this.editedPatient = paciente
-        this.dialog = !this.dialog
+			this.editedPatient = paciente
+			this.dialog = !this.dialog
 		}
 	}
 };
