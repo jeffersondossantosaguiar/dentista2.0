@@ -47,7 +47,7 @@
 									</v-col>
 								</v-row>
 								<v-row>
-									<v-col cols="10" md="10">
+									<v-col cols="12" md="6">
 										<v-text-field
 											v-model="
                                                 paciente.endereco.logradouro
@@ -55,12 +55,10 @@
 											label="Endereço"
 										></v-text-field>
 									</v-col>
-									<v-col cols="2" md="2">
+									<v-col cols="12" md="2">
 										<v-text-field v-model="paciente.endereco.numero" label="Numero"></v-text-field>
 									</v-col>
-								</v-row>
-								<v-row>
-									<v-col cols="12" md="6">
+									<v-col cols="12" md="4">
 										<v-text-field
 											v-model="
                                                 paciente.endereco.complemento
@@ -68,10 +66,15 @@
 											label="Complemento"
 										></v-text-field>
 									</v-col>
-									<v-col cols="6" md="4">
+								</v-row>
+								<v-row>
+									<v-col cols="12" md="5">
+										<v-text-field v-model="paciente.endereco.localidade" label="Cidade"></v-text-field>
+									</v-col>
+									<v-col cols="12" md="5">
 										<v-text-field v-model="paciente.endereco.bairro" label="Bairro"></v-text-field>
 									</v-col>
-									<v-col cols="6" md="2">
+									<v-col cols="12" md="2">
 										<v-select v-model="paciente.endereco.uf" :items="estados" label="UF"></v-select>
 									</v-col>
 								</v-row>
@@ -112,6 +115,7 @@ export default {
 					numero: "",
 					complemento: "",
 					bairro: "",
+					localidade: "",
 					uf: "SP",
 				},
 			},
@@ -126,10 +130,7 @@ export default {
 	methods: {
 		onFormSubmit(event) {
 			this.paciente.cpf = this.paciente.cpf.replace(/[^0-9]/g, ""); //remove os caracteres especiais
-			this.paciente.endereco.cep = this.paciente.endereco.cep.replace(
-				/[^0-9]/g,
-				""
-			); //remove os caracteres especiais
+			this.paciente.endereco.cep = this.paciente.endereco.cep.replace(/[^0-9]/g, ""); //remove os caracteres especiais
             event.preventDefault();
             if (!this.editedPatient) {
                 db.collection("pacientes")

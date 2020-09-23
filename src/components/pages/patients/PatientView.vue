@@ -35,21 +35,21 @@
 							<v-container class="d-flex v-card__text pl-4 pt-5">
 								<v-container>
 									<strong class="font-weight-medium">Logradouro</strong>
-									<p>Rua Jovelina Maria de Brito, 267</p>
+									<p>{{paciente.endereco.logradouro}}, {{paciente.endereco.numero}} {{paciente.endereco.complemento}}</p>
 								</v-container>
 								<v-container>
 									<strong class="font-weight-medium">Bairro</strong>
-									<p>Jardim Nova Esperança</p>
+									<p>{{paciente.endereco.bairro}}</p>
 								</v-container>
 							</v-container>
 							<v-container class="d-flex v-card__text pl-4 pt-5">
 								<v-container>
 									<strong class="font-weight-medium">Cidade</strong>
-									<p>Sorocaba - SP</p>
+									<p>{{paciente.endereco.localidade}} - {{paciente.endereco.uf}}</p>
 								</v-container>
 								<v-container>
 									<strong class="font-weight-medium">CEP</strong>
-									<p>18061-459</p>
+									<p>{{paciente.endereco.cep}}</p>
 								</v-container>
 							</v-container>
 							<v-container class="d-flex v-card__text pl-4 pt-5">
@@ -59,7 +59,7 @@
 								</v-container>
 								<v-container>
 									<strong class="font-weight-medium">Data de Registro</strong>
-									<p>22 de Setembro de 2020</p>
+									<p>{{}}</p>
 								</v-container>
 							</v-container>
 						</v-container>
@@ -171,7 +171,22 @@ export default {
 	name: "patient-view",
 	components: { PatientCreateForm },
 	data: () => ({
-		paciente: {},
+		paciente: {
+				nome: "",
+				email: "",
+				cpf: "",
+				rg: "",
+				telefone: "",
+				endereco: {
+					cep: "",
+					logradouro: "",
+					numero: "",
+					complemento: "",
+					bairro: "",
+					localidade: "",
+					uf: "",
+				},
+			},
 		dialog: false,
 		editedPatient: null,
 		items2: [
