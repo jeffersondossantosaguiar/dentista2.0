@@ -1,0 +1,11 @@
+*GERAL
+	- Criar um local unico de acesso a API/Banco
+	- Fatorar funcionabilidades do APP (Dividir o que for possivel em micro services).
+
+*Pacient List
+	- Implementar paginação na listagem
+
+*Paciente View
+	- Arrumar timeline que não estende totalmente a linha por conta do Scrol. Arrumar com JQuery
+	- Colocar texto padrão nos campos em que não foram preenchidos.
+	- Implementar Ativar/Desativar paciente

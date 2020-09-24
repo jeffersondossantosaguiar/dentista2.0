@@ -1,8 +1,8 @@
 <template>
 	<v-container class="patient-view">
-		<PatientCreateForm v-model="dialog" :editedPatient="editedPatient"/>
+		<PatientCreateForm v-model="dialog" :editedPatient="editedPatient" />
 		<v-container class="d-flex text-center align-self-center">
-			{{this.$route.path}}
+			{{ this.$route.path }}
 			<v-spacer></v-spacer>
 			<v-btn text small color="primary">
 				<v-icon>mdi-printer</v-icon>
@@ -15,15 +15,19 @@
 			<v-col cols="12" md="3">
 				<v-card class="v-card-profile d-flex">
 					<v-container class="text-center align-self-center">
-						<v-avatar class="avatar rounded-circle" rounded="true" size="100">
+						<v-avatar
+							class="avatar rounded-circle"
+							rounded="true"
+							size="100"
+						>
 							<img
 								src="https://lnb.com.br/wp-content/uploads/2016/03/Joselito-Sem-No%C3%A7%C3%A3o-400x406.jpg"
 								alt="Joselito"
 							/>
 						</v-avatar>
-						<h3 class="pt-5">{{paciente.nome}} </h3>
-						<p>{{paciente.email}}</p>
-						<p>{{paciente.telefone}}</p>
+						<h3 class="pt-5">{{ paciente.nome }}</h3>
+						<p>{{ paciente.email }}</p>
+						<p>{{ paciente.telefone }}</p>
 					</v-container>
 				</v-card>
 			</v-col>
@@ -34,32 +38,51 @@
 						<v-container class="align-self-center">
 							<v-container class="d-flex v-card__text pl-4 pt-5">
 								<v-container>
-									<strong class="font-weight-medium">Logradouro</strong>
-									<p>{{paciente.endereco.logradouro}}, {{paciente.endereco.numero}} {{paciente.endereco.complemento}}</p>
+									<strong class="font-weight-medium"
+										>Logradouro</strong
+									>
+									<p>
+										{{ paciente.endereco.logradouro }},
+										{{ paciente.endereco.numero }}
+										{{ paciente.endereco.complemento }}
+									</p>
 								</v-container>
 								<v-container>
-									<strong class="font-weight-medium">Bairro</strong>
-									<p>{{paciente.endereco.bairro}}</p>
-								</v-container>
-							</v-container>
-							<v-container class="d-flex v-card__text pl-4 pt-5">
-								<v-container>
-									<strong class="font-weight-medium">Cidade</strong>
-									<p>{{paciente.endereco.localidade}} - {{paciente.endereco.uf}}</p>
-								</v-container>
-								<v-container>
-									<strong class="font-weight-medium">CEP</strong>
-									<p>{{paciente.endereco.cep}}</p>
+									<strong class="font-weight-medium"
+										>Bairro</strong
+									>
+									<p>{{ paciente.endereco.bairro }}</p>
 								</v-container>
 							</v-container>
 							<v-container class="d-flex v-card__text pl-4 pt-5">
 								<v-container>
-									<strong class="font-weight-medium">Status do Paciente</strong>
+									<strong class="font-weight-medium"
+										>Cidade</strong
+									>
+									<p>
+										{{ paciente.endereco.localidade }} -
+										{{ paciente.endereco.uf }}
+									</p>
+								</v-container>
+								<v-container>
+									<strong class="font-weight-medium"
+										>CEP</strong
+									>
+									<p>{{ paciente.endereco.cep }}</p>
+								</v-container>
+							</v-container>
+							<v-container class="d-flex v-card__text pl-4 pt-5">
+								<v-container>
+									<strong class="font-weight-medium"
+										>Status do Paciente</strong
+									>
 									<p>Ativo</p>
 								</v-container>
 								<v-container>
-									<strong class="font-weight-medium">Data de Registro</strong>
-									<p>{{}}</p>
+									<strong class="font-weight-medium"
+										>Data de Registro</strong
+									>
+									<p>{{ paciente.dataCriacao }}</p>
 								</v-container>
 							</v-container>
 						</v-container>
@@ -89,7 +112,9 @@
 					<v-timeline dense class="v-timeline">
 						<v-timeline-item fill-dot small>
 							<v-card class="elevation-2">
-								<v-card-title class="headline">Lorem ipsum</v-card-title>
+								<v-card-title class="headline"
+									>Lorem ipsum</v-card-title
+								>
 								<v-card-text>
 									Lorem ipsum dolor sit amet, no nam oblique
 									veritus. Commune scaevola imperdiet nec ut,
@@ -102,7 +127,9 @@
 						</v-timeline-item>
 						<v-timeline-item fill-dot small>
 							<v-card class="elevation-2">
-								<v-card-title class="headline">Lorem ipsum</v-card-title>
+								<v-card-title class="headline"
+									>Lorem ipsum</v-card-title
+								>
 								<v-card-text>
 									Lorem ipsum dolor sit amet, no nam oblique
 									veritus. Commune scaevola imperdiet nec ut,
@@ -115,7 +142,9 @@
 						</v-timeline-item>
 						<v-timeline-item fill-dot small>
 							<v-card class="elevation-2">
-								<v-card-title class="headline">Lorem ipsum</v-card-title>
+								<v-card-title class="headline"
+									>Lorem ipsum</v-card-title
+								>
 								<v-card-text>
 									Lorem ipsum dolor sit amet, no nam oblique
 									veritus. Commune scaevola imperdiet nec ut,
@@ -140,18 +169,29 @@
 					</v-card-title>
 					<v-card-text class="text-center">
 						<v-list class="files-list">
-							<v-list-item v-for="item in items2" :key="item.title">
+							<v-list-item
+								v-for="item in items2"
+								:key="item.title"
+							>
 								<v-list-item-avatar>
-									<v-icon :class="[item.iconClass]">{{ item.icon }}</v-icon>
+									<v-icon :class="[item.iconClass]">{{
+										item.icon
+									}}</v-icon>
 								</v-list-item-avatar>
 								<v-list-item-content class="text-left">
-									<v-list-item-title v-text="item.title"></v-list-item-title>
-									<v-list-item-subtitle v-text="item.subtitle"></v-list-item-subtitle>
+									<v-list-item-title
+										v-text="item.title"
+									></v-list-item-title>
+									<v-list-item-subtitle
+										v-text="item.subtitle"
+									></v-list-item-subtitle>
 								</v-list-item-content>
 
 								<v-list-item-action>
 									<v-btn icon>
-										<v-icon color="grey lighten-1">mdi-information</v-icon>
+										<v-icon color="grey lighten-1"
+											>mdi-information</v-icon
+										>
 									</v-btn>
 								</v-list-item-action>
 							</v-list-item>
@@ -164,29 +204,29 @@
 </template>
 
 <script>
-import { db } from "@/config/firebaseDb.js"
-import PatientCreateForm from "@/components/template/PatientCreateForm.vue"
+import { db } from "@/config/firebaseDb.js";
+import PatientCreateForm from "@/components/template/PatientCreateForm.vue";
 
 export default {
 	name: "patient-view",
 	components: { PatientCreateForm },
 	data: () => ({
 		paciente: {
-				nome: "",
-				email: "",
-				cpf: "",
-				rg: "",
-				telefone: "",
-				endereco: {
-					cep: "",
-					logradouro: "",
-					numero: "",
-					complemento: "",
-					bairro: "",
-					localidade: "",
-					uf: "",
-				},
+			nome: "",
+			email: "",
+			cpf: "",
+			rg: "",
+			telefone: "",
+			endereco: {
+				cep: "",
+				logradouro: "",
+				numero: "",
+				complemento: "",
+				bairro: "",
+				localidade: "",
+				uf: "",
 			},
+		},
 		dialog: false,
 		editedPatient: null,
 		items2: [
@@ -201,23 +241,32 @@ export default {
 				iconClass: "amber white--text",
 				title: "Kitchen remodel",
 				subtitle: "Jan 10, 2014",
-			}
+			},
 		],
 	}),
 	created() {
-		let dbRef = db.collection('pacientes').doc(this.$route.params.id);
-            dbRef.get().then((doc) => {
-				this.paciente = doc.data()
-            }).catch((error) => {
-                console.log(error)
+		let dbRef = db.collection("pacientes").doc(this.$route.params.id);
+		dbRef
+			.get()
+			.then((doc) => {
+				this.paciente = doc.data();
+				const option = {
+					dateStyle: 'long'
+				};
+				this.paciente.dataCriacao = this.paciente.dataCriacao
+					.toDate()
+					.toLocaleDateString("pt-BR", option);
 			})
+			.catch((error) => {
+				console.log(error);
+			});
 	},
 	methods: {
 		editPatient(paciente) {
-			this.editedPatient = paciente
-			this.dialog = !this.dialog
-		}
-	}
+			this.editedPatient = paciente;
+			this.dialog = !this.dialog;
+		},
+	},
 };
 </script>
 

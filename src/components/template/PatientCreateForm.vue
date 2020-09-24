@@ -133,6 +133,8 @@ export default {
 			this.paciente.endereco.cep = this.paciente.endereco.cep.replace(/[^0-9]/g, ""); //remove os caracteres especiais
             event.preventDefault();
             if (!this.editedPatient) {
+				const dataCriacao = new Date()
+				this.paciente.dataCriacao = dataCriacao
                 db.collection("pacientes")
                     .add(this.paciente)
                     .then(() => {
