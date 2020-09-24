@@ -9,3 +9,6 @@
 	- Arrumar timeline que não estende totalmente a linha por conta do Scrol. Arrumar com JQuery
 	- Colocar texto padrão nos campos em que não foram preenchidos.
 	- Implementar Ativar/Desativar paciente
+	- Implementar Upload de imagem de Avatar
+	- Implementar Upload de arquivos / exames / documentos do paciente
+	- Implementar histórico de consultas

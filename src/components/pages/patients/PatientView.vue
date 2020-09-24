@@ -2,7 +2,6 @@
 	<v-container class="patient-view">
 		<PatientCreateForm v-model="dialog" :editedPatient="editedPatient" />
 		<v-container class="d-flex text-center align-self-center">
-			{{ this.$route.path }}
 			<v-spacer></v-spacer>
 			<v-btn text small color="primary">
 				<v-icon>mdi-printer</v-icon>
@@ -21,7 +20,7 @@
 							size="100"
 						>
 							<img
-								src="https://lnb.com.br/wp-content/uploads/2016/03/Joselito-Sem-No%C3%A7%C3%A3o-400x406.jpg"
+								src="../../../assets/avatar.jpg"
 								alt="Joselito"
 							/>
 						</v-avatar>
@@ -92,16 +91,23 @@
 
 			<v-col cols="12" md="4">
 				<v-card class="v-card-notes">
-					<v-card-title class="v-card-title">Notas</v-card-title>
-					<v-card-text class="text-center">
-						<v-textarea
-							outlined
-							name="input-7-4"
-							label="Notas do Paciente"
-							value="Paciente sente dores ao mastigar..."
-						></v-textarea>
-						<v-btn color="primary">Salvar</v-btn>
-					</v-card-text>
+					<v-form ref="formNotes" @submit.prevent="onFormNotesSubmit">
+						<v-card-title class="v-card-title">Notas</v-card-title>
+						<v-card-text class="text-center">
+							<v-textarea
+								v-model="paciente.notas"
+								outlined
+								name="input-7-4"
+								label="Notas do Paciente"
+							></v-textarea>
+							<v-btn
+								color="primary"
+								type="submit"
+								@click="onFormNotesSubmit"
+								>Salvar</v-btn
+							>
+						</v-card-text>
+					</v-form>
 				</v-card>
 			</v-col>
 		</v-row>
@@ -159,45 +165,7 @@
 				</v-card>
 			</v-col>
 			<v-col cols="12" md="4">
-				<v-card class="v-card-files">
-					<v-card-title class="v-card-title">
-						Arquivos / Documentos / Exames
-						<v-spacer></v-spacer>
-						<v-btn text color="primary">
-							<v-icon left>mdi-file-plus</v-icon>Upload
-						</v-btn>
-					</v-card-title>
-					<v-card-text class="text-center">
-						<v-list class="files-list">
-							<v-list-item
-								v-for="item in items2"
-								:key="item.title"
-							>
-								<v-list-item-avatar>
-									<v-icon :class="[item.iconClass]">{{
-										item.icon
-									}}</v-icon>
-								</v-list-item-avatar>
-								<v-list-item-content class="text-left">
-									<v-list-item-title
-										v-text="item.title"
-									></v-list-item-title>
-									<v-list-item-subtitle
-										v-text="item.subtitle"
-									></v-list-item-subtitle>
-								</v-list-item-content>
-
-								<v-list-item-action>
-									<v-btn icon>
-										<v-icon color="grey lighten-1"
-											>mdi-information</v-icon
-										>
-									</v-btn>
-								</v-list-item-action>
-							</v-list-item>
-						</v-list>
-					</v-card-text>
-				</v-card>
+				<PatientFiles :paciente="paciente" />
 			</v-col>
 		</v-row>
 	</v-container>
@@ -206,10 +174,11 @@
 <script>
 import { db } from "@/config/firebaseDb.js";
 import PatientCreateForm from "@/components/template/PatientCreateForm.vue";
+import PatientFiles from "./PatientFiles";
 
 export default {
 	name: "patient-view",
-	components: { PatientCreateForm },
+	components: { PatientCreateForm, PatientFiles },
 	data: () => ({
 		paciente: {
 			nome: "",
@@ -226,45 +195,49 @@ export default {
 				localidade: "",
 				uf: "",
 			},
+			notes: "",
 		},
 		dialog: false,
 		editedPatient: null,
-		items2: [
-			{
-				icon: "mdi-file-document",
-				iconClass: "blue white--text",
-				title: "Vacation itinerary",
-				subtitle: "Jan 20, 2014",
-			},
-			{
-				icon: "mdi-image",
-				iconClass: "amber white--text",
-				title: "Kitchen remodel",
-				subtitle: "Jan 10, 2014",
-			},
-		],
+		files: {},
 	}),
 	created() {
 		let dbRef = db.collection("pacientes").doc(this.$route.params.id);
-		dbRef
-			.get()
+		dbRef.get()
 			.then((doc) => {
 				this.paciente = doc.data();
 				const option = {
-					dateStyle: 'long'
+					dateStyle: "long",
 				};
 				this.paciente.dataCriacao = this.paciente.dataCriacao
 					.toDate()
 					.toLocaleDateString("pt-BR", option);
 			})
 			.catch((error) => {
-				console.log(error);
+				console.log("ERRO", error);
 			});
 	},
 	methods: {
 		editPatient(paciente) {
 			this.editedPatient = paciente;
 			this.dialog = !this.dialog;
+		},
+		onFormNotesSubmit(event) {
+			event.preventDefault();
+			db.collection("pacientes")
+				.doc(this.$route.params.id)
+				.update(this.paciente)
+				.then(() => {
+					this.$toast.open({
+						message: "Notas do Paciente Atualizadas",
+						type: "success",
+						position: "top-right",
+						duration: 3000,
+					});
+				})
+				.catch((error) => {
+					console.log(error);
+				});
 		},
 	},
 };
