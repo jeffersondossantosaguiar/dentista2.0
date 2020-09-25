@@ -4,7 +4,7 @@
 			<v-card-title class="v-card-title">
 				Arquivos
 				<v-spacer></v-spacer>
-                <v-dialog v-model="dialog" persistent max-width="290">
+				<v-dialog v-model="dialog" persistent width="500">
 					<template v-slot:activator="{ on, attrs }">
 						<v-btn text color="primary" v-bind="attrs" v-on="on">
 							Upload
@@ -14,31 +14,55 @@
 						<v-card-title class="headline"
 							>Upload de arquivo</v-card-title
 						>
-						<v-card-text
-							>Let Google help apps determine location. This means
-							sending anonymous location data to Google, even when
-							no apps are running.</v-card-text
-						>
+						<v-card-text>
+							<v-file-input
+								v-model="files"
+								color="deep-purple accent-4"
+								counter
+								label="Arquivos"
+								multiple
+								placeholder="Selecione os arquivos"
+								prepend-icon="mdi-paperclip"
+								outlined
+								:show-size="1000"
+							>
+								<template v-slot:selection="{ index, text }">
+									<v-chip
+										v-if="index < 2"
+										color="deep-purple accent-4"
+										dark
+										label
+										small
+									>
+										{{ text }}
+									</v-chip>
+
+									<span
+										v-else-if="index === 2"
+										class="overline grey--text text--darken-3 mx-2"
+									>
+										+{{ files.length - 2 }} File(s)
+									</span>
+								</template>
+							</v-file-input>
+						</v-card-text>
 						<v-card-actions>
 							<v-spacer></v-spacer>
 							<v-btn
-								color="green darken-1"
+								color="error"
 								text
 								@click="dialog = false"
-								>Disagree</v-btn
+								>Cancelar</v-btn
 							>
 							<v-btn
-								color="green darken-1"
+								color="success"
 								text
-								@click="dialog = false"
-								>Agree</v-btn
+								@click="uploadFiles()"
+								>Enviar</v-btn
 							>
 						</v-card-actions>
 					</v-card>
 				</v-dialog>
-				<!-- <v-btn text type="file" color="primary">
-					<v-icon left>mdi-file-plus</v-icon>Upload
-				</v-btn> -->
 			</v-card-title>
 			<v-card-text class="text-center">
 				<v-list class="files-list">
@@ -73,12 +97,14 @@
 
 <script>
 import { db } from "@/config/firebaseDb";
+import firebase from "firebase";
 
 export default {
 	name: "patient-files",
+	components: {},
 	props: ["paciente"],
 	data: () => ({
-        dialog: false,
+		dialog: false,
 		items2: [
 			{
 				icon: "mdi-file-document",
@@ -93,17 +119,33 @@ export default {
 				subtitle: "Jan 10, 2014",
 			},
 		],
+		files: [],
 	}),
 	created() {
-            let fileRef = db.collection('pacientes');
-            let files = fileRef.doc(this.$route.params.id).collection('arquivos')
-            files.get().then(function (querySnapshot) {
-				querySnapshot.forEach(function (doc) {
-					console.log("Lista de arquivos do usuário", doc.id, " => ", doc.data());
+		let fileRef = db.collection("pacientes");
+		let files = fileRef.doc(this.$route.params.id).collection("arquivos");
+		files.get().then(function (querySnapshot) {
+			querySnapshot.forEach(function (doc) {
+				console.log(
+					"Lista de arquivos do usuário",
+					doc.id,
+					" => ",
+					doc.data()
+				);
+			});
+		});
+	},
+	methods: {
+		uploadFiles() {
+			const storageRef = firebase.storage().ref();
+			this.files.forEach(file => {
+				storageRef.child(`patientFiles/` + file.name).put(file).then((snapshot) => {
+					console.log("TESTE UPLOAD", snapshot);
 				});
-            });
+			});
+		},
 	},
 };
 </script>
 
-<style></style>
+<style scoped></style>
