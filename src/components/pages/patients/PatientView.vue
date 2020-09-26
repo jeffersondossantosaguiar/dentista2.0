@@ -232,7 +232,7 @@ export default {
 						message: "Notas do Paciente Atualizadas",
 						type: "success",
 						position: "top-right",
-						duration: 3000,
+						duration: 5000,
 					});
 				})
 				.catch((error) => {

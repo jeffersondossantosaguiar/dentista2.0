@@ -10,8 +10,13 @@
 	- Colocar texto padrão nos campos em que não foram preenchidos.
 	- Implementar Ativar/Desativar paciente
 	- Implementar Upload de imagem de Avatar
-	- Implementar Upload de arquivos / exames / documentos do paciente
-		* Criar função para excluir
-		* Checar arquivos com o mesmo nome
-		* Checar quando paciente não tem arquivos
+	- Implementar Gerencimento de arquivos / exames / documentos do paciente
+		* Checar arquivos com o mesmo nome / dulicados
+		* Melhorar definição tipo do icone que aparace
+		* Melhorar verificação de exclusão de arquivos
+		* Pedir confirmação ao excluir arquivo
 	- Implementar histórico de consultas
+
+
+Exemplo
+https://ej2.syncfusion.com/showcase/angular/appointmentplanner/#/dashboard

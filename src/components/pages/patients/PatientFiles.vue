@@ -76,8 +76,18 @@
 
 						<v-list-item-action>
 							<v-btn icon>
-								<v-icon color="grey lighten-1"
-									>mdi-information</v-icon
+								<v-icon
+									color="grey lighten-1"
+									@click="downloadFile(item.metadata)"
+								>
+									mdi-download-circle</v-icon
+								>
+							</v-btn>
+							<v-btn icon>
+								<v-icon
+									color="grey lighten-1"
+									@click="deleteFile(item.metadata, item.id)"
+									>mdi-delete-circle</v-icon
 								>
 							</v-btn>
 						</v-list-item-action>
@@ -98,8 +108,9 @@ export default {
 	props: ["paciente"],
 	data: () => ({
 		dialog: false,
-		items2: [],
+		items2: "",
 		files: [],
+		urlFile: "google.com",
 	}),
 	created() {
 		this.listFiles();
@@ -114,24 +125,42 @@ export default {
 				.collection("arquivos");
 			files.get().then(function (querySnapshot) {
 				querySnapshot.forEach(function (doc) {
-					if (doc.data().contentType === "text/plain") {
-						iconType = "mdi-file-document";
-						iconTypeClass = "blue white--text";
-					} else if (doc.data().contentType === "image/jpeg") {
-						iconType = "mdi-image";
-						iconTypeClass = "amber white--text";
+					if (!Object.keys(doc.data()).length) {
+						return items;
+					} else {
+						if (doc.data().contentType === "text/plain") {
+							iconType = "mdi-file-document";
+							iconTypeClass = "blue white--text";
+						} else if (
+							doc.data().contentType === "image/jpeg" ||
+							doc.data().contentType === "image/png"
+						) {
+							iconType = "mdi-image";
+							iconTypeClass = "amber white--text";
+						} else if (
+							doc.data().contentType === "application/pdf"
+						) {
+							iconType = "mdi-file-pdf";
+							iconTypeClass = "red white--text";
+						} else {
+							iconType = "mdi-file";
+							iconTypeClass = "grey white--text";
+						}
+						items.push({
+							id: doc.id,
+							icon: iconType,
+							iconClass: iconTypeClass,
+							title: doc.data().name,
+							subtitle: `${new Date(
+								doc.data().timeCreated
+							).toLocaleDateString("pt-BR")}`,
+							metadata: doc.data(),
+						});
 					}
-					items.push({
-						icon: iconType,
-						iconClass: iconTypeClass,
-						title: doc.data().name,
-						subtitle: `Add ${new Date(
-							doc.data().timeCreated
-						).toLocaleDateString("pt-BR")}`,
-					});
 				});
 			});
 			this.items2 = items;
+			return this.items2
 		},
 		uploadFiles() {
 			const storageRef = firebase.storage().ref();
@@ -142,8 +171,8 @@ export default {
 					.put(file)
 					.then((snapshot) => {
 						this.createdFilesMeta(snapshot);
-						this.listFiles()
-						this.dialog = false
+						this.listFiles();
+						this.dialog = false;
 					})
 					.catch((error) => {
 						console.log("ERRO1", error);
@@ -163,19 +192,74 @@ export default {
 				})
 				.then(() => {
 					this.$toast.open({
-						message: "Upload completo",
+						message: "Arquivo enviado!",
 						type: "success",
 						position: "top-right",
-						duration: 3000,
+						duration: 5000,
 					});
 				})
 				.catch((error) => {
-					console.log("ERRO2");
+					this.$toast.open({
+						message: "Erro ao enviar arquivo!",
+						type: "error",
+						position: "top-right",
+						duration: 5000,
+					});
 					console.log(error);
 				});
 		},
-	},
+		downloadFile(metadata) {
+			const storageRef = firebase.storage().ref(metadata.path);
+			storageRef.getDownloadURL().then(function (url) {
+				fetch(url)
+					.then((resp) => resp.blob())
+					.then((blob) => {
+						const url = window.URL.createObjectURL(blob);
+						const a = document.createElement("a");
+						a.style.display = "none";
+						a.href = url;
+						a.download = metadata.name;
+						document.body.appendChild(a);
+						a.click();
+						window.URL.revokeObjectURL(url);
+					})
+					.catch((error) => console.log(error));
+			})
+		},
+		deleteFile(metadata, id) {
+			const storageRef = firebase.storage().ref(metadata.path);
+			db.collection("pacientes")
+				.doc(this.$route.params.id)
+				.collection("arquivos")
+				.doc(id)
+				.delete()
+				.then(function () {
+					storageRef
+						.delete()
+						.then(function () {
+							console.log("Arquivo Deletado");
+						})
+						.catch(function (error) {
+							console.log("ERRO delete Arquivo", error);
+						});
+					console.log("Meta Deletado!");
+				})
+				.catch(function (error) {
+					console.log("ERRO delete metadata", error);
+				});
+			this.$toast.open({
+				message: "Aquivo deletado",
+				type: "success",
+				position: "top-right",
+				duration: 5000,
+			})
+			this.listFiles()
+		}
+	}
 };
 </script>
-
-<style scoped></style>
+<style scoped>
+.v-list-item__action {
+	display: block;
+}
+</style>
