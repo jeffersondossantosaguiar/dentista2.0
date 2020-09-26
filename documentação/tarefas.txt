@@ -11,4 +11,7 @@
 	- Implementar Ativar/Desativar paciente
 	- Implementar Upload de imagem de Avatar
 	- Implementar Upload de arquivos / exames / documentos do paciente
+		* Criar função para excluir
+		* Checar arquivos com o mesmo nome
+		* Checar quando paciente não tem arquivos
 	- Implementar histórico de consultas

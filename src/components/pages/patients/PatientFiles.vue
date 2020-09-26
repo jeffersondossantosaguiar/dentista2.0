@@ -11,19 +11,18 @@
 						</v-btn>
 					</template>
 					<v-card justify="center">
-						<v-card-title class="headline"
-							>Upload de arquivo</v-card-title
+						<v-card-title class="headline justify-center"
+							>Enviar Arquivos</v-card-title
 						>
 						<v-card-text>
 							<v-file-input
 								v-model="files"
 								color="deep-purple accent-4"
 								counter
-								label="Arquivos"
+								label="Selecione os arquivos"
 								multiple
-								placeholder="Selecione os arquivos"
-								prepend-icon="mdi-paperclip"
 								outlined
+								dense
 								:show-size="1000"
 							>
 								<template v-slot:selection="{ index, text }">
@@ -41,23 +40,17 @@
 										v-else-if="index === 2"
 										class="overline grey--text text--darken-3 mx-2"
 									>
-										+{{ files.length - 2 }} File(s)
+										+{{ files.length - 2 }} Arquivo(s)
 									</span>
 								</template>
 							</v-file-input>
 						</v-card-text>
 						<v-card-actions>
 							<v-spacer></v-spacer>
-							<v-btn
-								color="error"
-								text
-								@click="dialog = false"
+							<v-btn color="error" text @click="dialog = false"
 								>Cancelar</v-btn
 							>
-							<v-btn
-								color="success"
-								text
-								@click="uploadFiles()"
+							<v-btn color="success" text @click="uploadFiles()"
 								>Enviar</v-btn
 							>
 						</v-card-actions>
@@ -105,44 +98,81 @@ export default {
 	props: ["paciente"],
 	data: () => ({
 		dialog: false,
-		items2: [
-			{
-				icon: "mdi-file-document",
-				iconClass: "blue white--text",
-				title: "Vacation itinerary",
-				subtitle: "Jan 20, 2014",
-			},
-			{
-				icon: "mdi-image",
-				iconClass: "amber white--text",
-				title: "Kitchen remodel",
-				subtitle: "Jan 10, 2014",
-			},
-		],
+		items2: [],
 		files: [],
 	}),
 	created() {
-		let fileRef = db.collection("pacientes");
-		let files = fileRef.doc(this.$route.params.id).collection("arquivos");
-		files.get().then(function (querySnapshot) {
-			querySnapshot.forEach(function (doc) {
-				console.log(
-					"Lista de arquivos do usuário",
-					doc.id,
-					" => ",
-					doc.data()
-				);
-			});
-		});
+		this.listFiles();
 	},
 	methods: {
-		uploadFiles() {
-			const storageRef = firebase.storage().ref();
-			this.files.forEach(file => {
-				storageRef.child(`patientFiles/` + file.name).put(file).then((snapshot) => {
-					console.log("TESTE UPLOAD", snapshot);
+		listFiles() {
+			let fileRef = db.collection("pacientes");
+			var items = [];
+			let iconType, iconTypeClass;
+			let files = fileRef
+				.doc(this.$route.params.id)
+				.collection("arquivos");
+			files.get().then(function (querySnapshot) {
+				querySnapshot.forEach(function (doc) {
+					if (doc.data().contentType === "text/plain") {
+						iconType = "mdi-file-document";
+						iconTypeClass = "blue white--text";
+					} else if (doc.data().contentType === "image/jpeg") {
+						iconType = "mdi-image";
+						iconTypeClass = "amber white--text";
+					}
+					items.push({
+						icon: iconType,
+						iconClass: iconTypeClass,
+						title: doc.data().name,
+						subtitle: `Add ${new Date(
+							doc.data().timeCreated
+						).toLocaleDateString("pt-BR")}`,
+					});
 				});
 			});
+			this.items2 = items;
+		},
+		uploadFiles() {
+			const storageRef = firebase.storage().ref();
+			this.files.forEach((file) => {
+				const path = `patientFiles/${this.$route.params.id}/${file.name}`;
+				storageRef
+					.child(path)
+					.put(file)
+					.then((snapshot) => {
+						this.createdFilesMeta(snapshot);
+						this.listFiles()
+						this.dialog = false
+					})
+					.catch((error) => {
+						console.log("ERRO1", error);
+					});
+			});
+		},
+		createdFilesMeta(snapshot) {
+			db.collection("pacientes")
+				.doc(this.$route.params.id)
+				.collection("arquivos")
+				.add({
+					name: snapshot.metadata.name,
+					contentType: snapshot.metadata.contentType,
+					path: snapshot.metadata.fullPath,
+					size: snapshot.metadata.size,
+					timeCreated: snapshot.metadata.timeCreated,
+				})
+				.then(() => {
+					this.$toast.open({
+						message: "Upload completo",
+						type: "success",
+						position: "top-right",
+						duration: 3000,
+					});
+				})
+				.catch((error) => {
+					console.log("ERRO2");
+					console.log(error);
+				});
 		},
 	},
 };
