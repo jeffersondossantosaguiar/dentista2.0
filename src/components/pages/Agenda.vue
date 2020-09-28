@@ -50,6 +50,7 @@
                         @click:more="viewDay"
                         @click:date="viewDay"
                         @change="updateRange"
+                        :weekdays="weekday"
                     ></v-calendar>
                     <v-menu
                         v-model="selectedOpen"
@@ -91,7 +92,7 @@ export default {
     name: "agenda",
     data: () => ({
       focus: '',
-      type: 'month',
+      type: 'week',
       typeToLabel: {
         month: 'Month',
         week: 'Week',
@@ -104,6 +105,7 @@ export default {
       events: [],
       colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
       names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
+      weekday: [1, 2, 3, 4, 5, 6]
     }),
     mounted () {
       this.$refs.calendar.checkChange()

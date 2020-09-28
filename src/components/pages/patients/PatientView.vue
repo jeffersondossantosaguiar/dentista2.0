@@ -27,6 +27,9 @@
 						<h3 class="pt-5">{{ paciente.nome }}</h3>
 						<p>{{ paciente.email }}</p>
 						<p>{{ paciente.telefone }}</p>
+						<v-btn color="primary">
+							<v-icon>mdi-plus</v-icon>Consulta
+						</v-btn>
 					</v-container>
 				</v-card>
 			</v-col>

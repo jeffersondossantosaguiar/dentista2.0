@@ -17,7 +17,7 @@ const routes = [{
     path: '/agenda',
     component: Agenda,
 }, {
-    name: 'Pacientes',
+    name: 'Lista de Pacientes',
     path: '/pacientes',
     component: PatientsList,
 }, {
