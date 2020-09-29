@@ -1,5 +1,5 @@
 <template>
-	<div class="patient-create-form">
+	<div class="patient-form">
 		<v-dialog :value="value" :editedPatient="editedPatient" persistent width="900px">
 			<v-card>
 				<v-card-title>
@@ -97,7 +97,7 @@ import { db } from "@/config/firebaseDb";
 import axios from "axios";
 
 export default {
-	name: "patient-create-form",
+	name: "patient-form",
 	props: ["value", "editedPatient"],
 	data() {
 		return {

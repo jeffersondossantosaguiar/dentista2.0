@@ -1,6 +1,6 @@
 <template>
     <div class="patients-list">
-        <PatientCreateForm v-model="dialog" />
+        <PatientForm v-model="dialog" />
         <v-card>
             <v-card-title>
                 <v-text-field
@@ -34,11 +34,11 @@
 
 <script>
 import { db } from "@/config/firebaseDb.js"
-import PatientCreateForm from "@/components/template/PatientCreateForm.vue"
+import PatientForm from "./PatientForm"
 
 export default {
     name: "patients-list",
-    components: { PatientCreateForm },
+    components: { PatientForm },
     data() {
         return {
             cep: "",

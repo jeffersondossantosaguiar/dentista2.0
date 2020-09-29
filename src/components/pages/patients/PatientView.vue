@@ -1,6 +1,6 @@
 <template>
 	<v-container class="patient-view">
-		<PatientCreateForm v-model="dialog" :editedPatient="editedPatient" />
+		<PatientForm v-model="dialog" :editedPatient="editedPatient" />
 		<v-container class="d-flex text-center align-self-center">
 			<v-spacer></v-spacer>
 			<v-btn text small color="primary">
@@ -27,7 +27,7 @@
 						<h3 class="pt-5">{{ paciente.nome }}</h3>
 						<p>{{ paciente.email }}</p>
 						<p>{{ paciente.telefone }}</p>
-						<v-btn color="primary">
+						<v-btn outlined color="primary">
 							<v-icon>mdi-plus</v-icon>Consulta
 						</v-btn>
 					</v-container>
@@ -176,12 +176,12 @@
 
 <script>
 import { db } from "@/config/firebaseDb.js";
-import PatientCreateForm from "@/components/template/PatientCreateForm.vue";
+import PatientForm from "./PatientForm"
 import PatientFiles from "./PatientFiles";
 
 export default {
 	name: "patient-view",
-	components: { PatientCreateForm, PatientFiles },
+	components: { PatientForm, PatientFiles },
 	data: () => ({
 		paciente: {
 			nome: "",

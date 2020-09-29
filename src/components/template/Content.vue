@@ -1,7 +1,7 @@
 <template>
-    <div class="content">
+    <v-main class="content">
         <router-view></router-view>
-    </div>
+    </v-main>
 </template>
 
 <script>
@@ -11,4 +11,8 @@ export default {
 </script>
 
 <style>
+.v-main__wrap {
+	background-color: #f1f6fc;
+	padding: 20px;
+}
 </style>
