@@ -11,7 +11,7 @@
 			</v-btn>
 		</v-container>
 		<v-row>
-			<v-col cols="12" md="3">
+			<v-col class="padding-right-0px" cols="12" md="3">
 				<v-card class="v-card-profile d-flex">
 					<v-container class="text-center align-self-center">
 						<v-avatar
@@ -269,6 +269,9 @@ export default {
 }
 .v-card-profile {
 	min-height: 350px;
+}
+.padding-right-0px{
+	padding-right: 0px;
 }
 .v-card-data {
 	min-height: 350px;

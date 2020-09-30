@@ -1,8 +1,6 @@
 <template>
     <div class="settings">
-        <v-card>
-            Configurações
-        </v-card>
+        <router-view />
     </div>
 </template>
 

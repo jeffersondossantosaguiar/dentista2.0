@@ -22,3 +22,7 @@
 
 Exemplo
 https://ej2.syncfusion.com/showcase/angular/appointmentplanner/#/dashboard
+
+https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/demo-1/dashboard/analytics
+
+https://app.dentaloffice.com.br/#/dashboard

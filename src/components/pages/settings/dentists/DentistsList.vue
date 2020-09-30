@@ -1,6 +1,5 @@
 <template>
-    <div class="patients-list">
-        <PatientForm v-model="dialog" />
+    <div class="dentists-list">
         <v-card>
             <v-card-title>
                 <v-text-field
@@ -12,15 +11,30 @@
                 ></v-text-field>
                 <v-spacer></v-spacer>
                 <v-btn color="primary" dark @click="dialog = true">
-                    <v-icon left>mdi-account-plus</v-icon>Adicionar Paciente
+                    <v-icon left>mdi-account-plus</v-icon>Adicionar Dentista
                 </v-btn>
             </v-card-title>
             <v-data-table
                 class="row-pointer"
                 :headers="headers"
-                :items="Patients"
+                :items="Dentists"
                 :search="search"
             >
+                <template v-slot:[`item.name`]="{ item }">
+                    <v-avatar size="36">
+                        <img
+                            src="@/assets/avatar.jpg"
+                        />
+                    </v-avatar> {{ item.name }}
+                </template>
+                <template v-slot:[`item.enable`]="{ item }">
+                    <v-icon v-if="item.enable" color="green" fab
+                        >mdi-checkbox-marked-circle</v-icon
+                    >
+                    <v-icon v-else fab
+                        >mdi-checkbox-blank-circle-outline</v-icon
+                    >
+                </template>
                 <template v-slot:[`item.actions`]="{ item }">
                     <v-icon color="primary" fab @click="viewPatient(item)"
                         >mdi-account-edit</v-icon
@@ -33,36 +47,37 @@
 
 <script>
 import { db } from "@/config/firebaseDb.js"
-import PatientForm from "./PatientForm"
 
 export default {
-    name: "patients-list",
-    components: { PatientForm },
+    name: "dentists-list",
     data() {
         return {
-            cep: "",
-            data: "",
-            messageCep: null,
             dialog: false,
             search: "",
             headers: [
                 { text: "Nome", align: "start", sortable: true, value: "name" },
-                { text: "Telefone", value: "phone" },
-                { text: "Email", value: "email" },
+                { text: "Especialidade", value: "speciality" },
+                { text: "Telefone", value: "phone", sortable: true },
+                { text: "E-mail", value: "email", sortable: true },
+                { text: "CRO", value: "cro" },
+                { text: "Ativo", value: "enable", sortable: true },
                 { text: "Ações", value: "actions", sortable: false }
             ],
-            Patients: []
+            Dentists: []
         }
     },
     async created() {
-        await db.collection("pacientes").onSnapshot((snapshotChange) => {
-            this.Patients = []
+        await db.collection("dentistas").onSnapshot((snapshotChange) => {
+            this.Dentists = []
             snapshotChange.forEach((res) => {
-                this.Patients.push({
+                this.Dentists.push({
                     id: res.id,
                     name: res.data().nome,
+                    speciality: res.data().especialidade,
                     phone: res.data().telefone,
-                    email: res.data().email
+                    email: res.data().email,
+                    cro: res.data().cro,
+                    enable: res.data().ativo
                 })
             })
         })
@@ -76,7 +91,5 @@ export default {
 </script>
 
 <style>
-/* tbody:hover {
-  cursor: pointer;
-} */
+
 </style>

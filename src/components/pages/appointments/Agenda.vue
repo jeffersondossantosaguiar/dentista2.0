@@ -5,7 +5,7 @@
             <v-col>
                 <v-sheet height="64">
                     <v-toolbar flat color="white">
-                        <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">Today</v-btn>
+                        <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">Hoje</v-btn>
                         <v-btn fab text small color="grey darken-2" @click="prev">
                             <v-icon small>mdi-chevron-left</v-icon>
                         </v-btn>
@@ -23,16 +23,16 @@
                             </template>
                             <v-list>
                                 <v-list-item @click="type = 'day'">
-                                    <v-list-item-title>Day</v-list-item-title>
+                                    <v-list-item-title>Dia</v-list-item-title>
                                 </v-list-item>
                                 <v-list-item @click="type = 'week'">
-                                    <v-list-item-title>Week</v-list-item-title>
+                                    <v-list-item-title>Semana</v-list-item-title>
                                 </v-list-item>
                                 <v-list-item @click="type = 'month'">
-                                    <v-list-item-title>Month</v-list-item-title>
+                                    <v-list-item-title>Mês</v-list-item-title>
                                 </v-list-item>
                                 <v-list-item @click="type = '4day'">
-                                    <v-list-item-title>4 days</v-list-item-title>
+                                    <v-list-item-title>4 dias</v-list-item-title>
                                 </v-list-item>
                             </v-list>
                         </v-menu>
@@ -94,10 +94,10 @@ export default {
       focus: '',
       type: 'week',
       typeToLabel: {
-        month: 'Month',
-        week: 'Week',
-        day: 'Day',
-        '4day': '4 Days',
+        month: 'Mês',
+        week: 'Semana',
+        day: 'Dia',
+        '4day': '4 Dias',
       },
       selectedEvent: {},
       selectedElement: null,
@@ -105,7 +105,7 @@ export default {
       events: [],
       colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
       names: ['Meeting', 'Holiday', 'PTO', 'Travel', 'Event', 'Birthday', 'Conference', 'Party'],
-      weekday: [1, 2, 3, 4, 5, 6]
+      weekday: [0, 1, 2, 3, 4, 5, 6]
     }),
     mounted () {
       this.$refs.calendar.checkChange()
