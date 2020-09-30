@@ -23,6 +23,10 @@
 Exemplo
 https://ej2.syncfusion.com/showcase/angular/appointmentplanner/#/dashboard
 
-https://pixinvent.com/demo/vuexy-vuejs-admin-dashboard-template/demo-1/dashboard/analytics
-
 https://app.dentaloffice.com.br/#/dashboard
+
+https://lux-admin-pro.indielayer.com/dashboard/analytics
+
+https://imasters.com.br/front-end/criando-uma-aplicacao-vue-js-com-o-sistema-de-autenticacao-firebase
+
+vuetifyjs.com/en/components/icons/

@@ -113,8 +113,6 @@
 					</v-form>
 				</v-card>
 			</v-col>
-		</v-row>
-		<v-row>
 			<v-col cols="12" md="8">
 				<v-card class="v-card-historic overflow-y-auto">
 					<v-card-title class="v-card-title">Histórico</v-card-title>

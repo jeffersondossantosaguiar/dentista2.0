@@ -90,7 +90,7 @@ export default {
 				this.$store.commit("SET_DRAWER", val);
 			},
 		},
-	},
+	}
 };
 </script>
 

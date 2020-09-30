@@ -36,7 +36,7 @@
                     >
                 </template>
                 <template v-slot:[`item.actions`]="{ item }">
-                    <v-icon color="primary" fab @click="viewPatient(item)"
+                    <v-icon color="primary" fab @click="viewDentist(item)"
                         >mdi-account-edit</v-icon
                     >
                 </template>
@@ -83,8 +83,8 @@ export default {
         })
     },
     methods: {
-        viewPatient(patient) {
-            this.$router.push({ path: `/pacientes/${patient.id}` })
+        viewDentist(dentist) {
+            this.$router.push({ path: `/configuracoes/dentistas/${dentist.id}` })
         }
     }
 }
