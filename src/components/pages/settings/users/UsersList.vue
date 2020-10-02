@@ -1,5 +1,5 @@
 <template>
-    <div class="dentists-list">
+    <div class="users-list">
         <v-card>
             <v-card-title>
                 <v-text-field
@@ -17,7 +17,7 @@
             <v-data-table
                 class="row-pointer"
                 :headers="headers"
-                :items="Dentists"
+                :items="Users"
                 :search="search"
             >
                 <template v-slot:[`item.name`]="{ item }">
@@ -49,35 +49,33 @@
 import { db } from "@/config/firebaseDb.js"
 
 export default {
-    name: "dentists-list",
+    name: "users-list",
     data() {
         return {
             dialog: false,
             search: "",
             headers: [
                 { text: "Nome", align: "start", sortable: true, value: "name" },
-                { text: "Especialidade", value: "speciality" },
-                { text: "Telefone", value: "phone", sortable: true },
                 { text: "E-mail", value: "email", sortable: true },
-                { text: "CRO", value: "cro" },
+                { text: "Permissão", value: "role", sortable: true },
                 { text: "Ativo", value: "enable", sortable: true },
                 { text: "Ações", value: "actions", sortable: false }
             ],
-            Dentists: []
+            Users: []
         }
     },
     async created() {
-        await db.collection("dentistas").onSnapshot((snapshotChange) => {
-            this.Dentists = []
+        await db.collection("users").onSnapshot((snapshotChange) => {
+            this.Users = []
             snapshotChange.forEach((res) => {
-                this.Dentists.push({
+                this.Users.push({
                     id: res.id,
+                    avatar: res.data().avatar,
                     name: res.data().nome,
-                    speciality: res.data().especialidade,
-                    phone: res.data().telefone,
+                    createdAt: res.data().dataCriacao,
                     email: res.data().email,
-                    cro: res.data().cro,
-                    enable: res.data().ativo
+                    enable: res.data().ativo,
+                    role: res.data().permissao
                 })
             })
         })
