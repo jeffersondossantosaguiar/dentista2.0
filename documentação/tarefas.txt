@@ -20,6 +20,9 @@
 *Menu Topo
 	- Colocar os botões de ações de cada pagina nele
 
+*Users
+	- Criar o perfil de cada um
+
 Exemplo
 https://ej2.syncfusion.com/showcase/angular/appointmentplanner/#/dashboard
 

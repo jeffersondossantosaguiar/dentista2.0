@@ -74,6 +74,7 @@ export default {
 				},
 				{ 
 					text: "Usuários",
+					path: "/configuracoes/usuarios",
 				},
 				{ 
 					text: "Anamneses",

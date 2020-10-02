@@ -3,7 +3,7 @@
       <v-card>
         <v-row class="fill-height">
             <v-col>
-                <v-sheet height="64">
+                <v-sheet>
                     <v-toolbar flat color="white">
                         <v-btn outlined class="mr-4" color="grey darken-2" @click="setToday">Hoje</v-btn>
                         <v-btn fab text small color="grey darken-2" @click="prev">

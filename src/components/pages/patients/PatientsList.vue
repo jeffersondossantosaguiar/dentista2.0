@@ -11,7 +11,7 @@
                     hide-details
                 ></v-text-field>
                 <v-spacer></v-spacer>
-                <v-btn color="primary" dark @click="dialog = true">
+                <v-btn color="primary" small dark @click="dialog = true">
                     <v-icon left>mdi-account-plus</v-icon>Adicionar Paciente
                 </v-btn>
             </v-card-title>

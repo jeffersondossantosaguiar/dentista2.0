@@ -7,6 +7,7 @@ import PatientsList from "@/components/pages/patients/PatientsList.vue"
 import PatientView from "@/components/pages/patients/PatientView.vue"
 import Settings from "@/components/pages/settings/Settings.vue"
 import DentistsList from "@/components/pages/settings/dentists/DentistsList.vue"
+import UsersList from "@/components/pages/settings/users/UsersList.vue"
 import Login from "@/components/auth/Login.vue"
 
 import firebase from 'firebase'
@@ -36,7 +37,7 @@ const routes = [
                 component: Agenda,
             },
             {
-                name: "Lista de Pacientes",
+                name: "Pacientes",
                 path: "/pacientes",
                 component: PatientsList,
             },
@@ -52,9 +53,14 @@ const routes = [
                 component: Settings,
                 children: [
                     {
-                        name: "Lista de Dentistas",
+                        name: "Dentistas",
                         path: "dentistas",
                         component: DentistsList,
+                    },
+                    {
+                        name: "Usuários",
+                        path: "usuarios",
+                        component: UsersList,
                     }
                 ]
             }

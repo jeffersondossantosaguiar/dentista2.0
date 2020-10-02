@@ -11,7 +11,7 @@
                 ></v-text-field>
                 <v-spacer></v-spacer>
                 <v-btn color="primary" small dark @click="dialog = true">
-                    <v-icon left>mdi-account-plus</v-icon>Adicionar Dentista
+                    <v-icon left>mdi-account-plus</v-icon>Adicionar Usuário
                 </v-btn>
             </v-card-title>
             <v-data-table
