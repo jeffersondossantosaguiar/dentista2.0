@@ -99,7 +99,7 @@
 </template>
 
 <script>
-import { db } from "@/config/firebaseDb";
+import { db } from "@/config/firebase";
 import firebase from "firebase";
 
 export default {

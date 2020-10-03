@@ -46,7 +46,7 @@
 </template>
 
 <script>
-import { db } from "@/config/firebaseDb.js"
+import { db } from "@/config/firebase.js"
 
 export default {
     name: "users-list",

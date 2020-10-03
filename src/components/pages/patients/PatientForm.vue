@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import { db } from "@/config/firebaseDb";
+import { db } from "@/config/firebase";
 import axios from "axios";
 
 export default {

@@ -173,7 +173,7 @@
 </template>
 
 <script>
-import { db } from "@/config/firebaseDb.js";
+import { db } from "@/config/firebase.js";
 import PatientForm from "./PatientForm"
 import PatientFiles from "./PatientFiles";
 
