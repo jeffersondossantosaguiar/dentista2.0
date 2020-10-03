@@ -1,5 +1,8 @@
 import * as firebase from "firebase"
+import 'firebase/auth'
+import 'firebase/firestore'
 
+// firebase init
 const firebaseConfig = {
     apiKey: "AIzaSyDbZ0uUCi1t38SaU2IDGUUX2mroYTyzcxE",
     authDomain: "dentista-2ponto0-4f64f.firebaseapp.com",
@@ -11,6 +14,22 @@ const firebaseConfig = {
     measurementId: "G-V6DDWRTDR2"
 }
 
-const firebaseApp = firebase.initializeApp(firebaseConfig)
+firebase.initializeApp(firebaseConfig)
 
-export const db = firebaseApp.firestore()
+//utils
+const db = firebase.firestore()
+const auth = firebase.auth()
+
+//Referencias das coleções
+const usersCollection = db.collection('users')
+const pacientesCollection = db.collection('pacientes')
+const dentistasCollection = db.collection('dentistas')
+
+
+export {
+    db,
+    auth,
+    usersCollection,
+    pacientesCollection,
+    dentistasCollection
+}

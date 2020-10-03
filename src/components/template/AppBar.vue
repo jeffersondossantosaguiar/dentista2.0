@@ -13,7 +13,7 @@
 			<v-list>
 				<v-list-item>
 					<v-list-item-title>
-						<v-btn tile small @click="logout">
+						<v-btn tile small @click="logout()">
 							<v-icon left> mdi-logout-variant </v-icon>
 							Logout
 						</v-btn>
@@ -26,7 +26,6 @@
 
 <script>
 import { mapState, mapMutations } from "vuex";
-import firebase from 'firebase'
 
 export default {
 	computed: {
@@ -37,11 +36,7 @@ export default {
 			setDrawer: "SET_DRAWER",
 		}),
 		logout() {
-			/* var user = firebase.auth().currentUser;
-			console.log("teste", user.uid); */
-			firebase.auth().signOut().then(() => {
-				this.$router.replace('login')
-			})
+			this.$store.dispatch('logout')
 		}
 	}
 };

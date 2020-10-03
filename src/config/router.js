@@ -1,5 +1,7 @@
 import Vue from "vue"
 import VueRouter from "vue-router"
+import { auth } from '@/config/firebase'
+
 import Index from "@/components/Index.vue"
 import Home from "@/components/pages/Home.vue"
 import Agenda from "@/components/pages/appointments/Agenda.vue"
@@ -10,7 +12,6 @@ import DentistsList from "@/components/pages/settings/dentists/DentistsList.vue"
 import UsersList from "@/components/pages/settings/users/UsersList.vue"
 import Login from "@/components/auth/Login.vue"
 
-import firebase from 'firebase'
 
 Vue.use(VueRouter)
 
@@ -22,7 +23,8 @@ const routes = [
     {
         path: "/",
         component: Index,
-        meta: {
+        //Meta campo é uma informação adicional que você pode definir para o seu percurso. requiresAuth nos informará que essa visão precisa de autenticação.
+        meta: { 
             requireAuth: true
         },
         children: [
@@ -79,11 +81,12 @@ const router = new VueRouter({
     routes
 })
 
+// navigation guard to check for logged in users / Logica para deixar acessar apenas usuários autenticados, caso não o usuário é derirecionado para a tela de login
 router.beforeEach((to, from, next) => {
-    const currentUser = firebase.auth().currentUser
     const requireAuth = to.matched.some(record => record.meta.requireAuth)
-    if(requireAuth && !currentUser) next('login')
-    else if (!requireAuth && currentUser) next('/');
+    if(requireAuth && !auth.currentUser) {
+        next('login')
+    }
     else next()
 })
 

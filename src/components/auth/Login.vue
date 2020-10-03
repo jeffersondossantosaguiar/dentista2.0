@@ -14,18 +14,19 @@
 							<v-form
 								v-model="valid"
 								ref="form"
-								@submit.prevent="onLoginSubmit"
+								@submit.prevent
 							>
+								<!-- (.trim) remove emove os espaços em branco (whitespaces) do início e/ou fim de um texto -->
 								<v-text-field
-									v-model="login"
-									name="login"
-									label="Login"
+									v-model.trim="email"
+									name="email"
+									label="Email"
 									type="text"
 									:rules="[rules.required]"
 									outlined
 								></v-text-field>
 								<v-text-field
-									v-model="password"
+									v-model.trim="password"
 									:append-icon="
 										show ? 'mdi-eye' : 'mdi-eye-off'
 									"
@@ -45,7 +46,7 @@
 								color="primary"
 								large
 								type="submit"
-								@click="onLoginSubmit"
+								@click="login"
 								>Login</v-btn
 							>
 						</v-card-actions>
@@ -60,11 +61,11 @@
 </template>
 
 <script>
-import firebase from "firebase";
+/* import firebase from "firebase"; */
 
 export default {
 	data: () => ({
-		login: "",
+		email: "",
 		password: "",
 		valid: false,
 		show: false,
@@ -76,17 +77,20 @@ export default {
 		source: String,
 	},
 	methods: {
-		onLoginSubmit() {
-			event.preventDefault();
-			firebase
+		login() {
+			this.$store.dispatch('login', {
+			email: this.email,
+			password: this.password
+		})
+			/* firebase
 				.auth()
-				.signInWithEmailAndPassword(this.login, this.password)
+				.signInWithEmailAndPassword(this.email, this.password)
 				.then(() => {
 					this.$router.replace("/");
 				})
 				.catch((error) => {
 					console.log(error);
-				});
+				}); */
 		},
 	},
 };

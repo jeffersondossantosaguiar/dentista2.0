@@ -2,12 +2,12 @@
 	<v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" app>
 		<v-list-item two-line :class="miniVariant && 'px-0'">
 			<v-list-item-avatar>
-				<img src="https://randomuser.me/api/portraits/men/81.jpg" />
+				<img :src="userProfile.avatar" />
 			</v-list-item-avatar>
 
 			<v-list-item-content>
-				<v-list-item-title>Application</v-list-item-title>
-				<v-list-item-subtitle>Subtext</v-list-item-subtitle>
+				<v-list-item-title>{{userProfile.nome}}</v-list-item-title>
+				<v-list-item-subtitle>{{userProfile.email}}</v-list-item-subtitle>
 			</v-list-item-content>
 		</v-list-item>
 		<v-divider></v-divider>
@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
 	data: () => ({
 		miniVariant: false,
@@ -91,7 +92,8 @@ export default {
 				this.$store.commit("SET_DRAWER", val);
 			},
 		},
-	}
+		...mapState(["userProfile"]),
+	},
 };
 </script>
 

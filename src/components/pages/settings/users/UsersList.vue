@@ -23,7 +23,7 @@
                 <template v-slot:[`item.name`]="{ item }">
                     <v-avatar size="36">
                         <img
-                            src="@/assets/avatar.jpg"
+                            :src="item.avatar"
                         />
                     </v-avatar> {{ item.name }}
                 </template>
