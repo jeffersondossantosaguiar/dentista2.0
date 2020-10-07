@@ -94,7 +94,7 @@
 
 			<v-col cols="12" md="4">
 				<v-card class="v-card-notes">
-					<v-form ref="formNotes" @submit.prevent="onFormNotesSubmit">
+					<v-form ref="formNotes" @submit.prevent>
 						<v-card-title class="v-card-title">Notas</v-card-title>
 						<v-card-text class="text-center">
 							<v-textarea
@@ -173,8 +173,8 @@
 </template>
 
 <script>
-import { db } from "@/config/firebase.js";
-import PatientForm from "./PatientForm"
+import { pacientesCollection } from "@/config/firebase";
+import PatientForm from "./PatientForm";
 import PatientFiles from "./PatientFiles";
 
 export default {
@@ -203,8 +203,9 @@ export default {
 		files: {},
 	}),
 	created() {
-		let dbRef = db.collection("pacientes").doc(this.$route.params.id);
-		dbRef.get()
+		let dbRef = pacientesCollection.doc(this.$route.params.id);
+		dbRef
+			.get()
 			.then((doc) => {
 				this.paciente = doc.data();
 				const option = {
@@ -223,9 +224,8 @@ export default {
 			this.editedPatient = paciente;
 			this.dialog = !this.dialog;
 		},
-		onFormNotesSubmit(event) {
-			event.preventDefault();
-			db.collection("pacientes")
+		async onFormNotesSubmit() {
+			await pacientesCollection
 				.doc(this.$route.params.id)
 				.update(this.paciente)
 				.then(() => {
@@ -268,7 +268,7 @@ export default {
 .v-card-profile {
 	min-height: 350px;
 }
-.padding-right-0px{
+.padding-right-0px {
 	padding-right: 0px;
 }
 .v-card-data {

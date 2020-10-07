@@ -19,6 +19,7 @@ firebase.initializeApp(firebaseConfig)
 //utils
 const db = firebase.firestore()
 const auth = firebase.auth()
+const storage = firebase.storage()
 
 //Referencias das coleções
 const usersCollection = db.collection('users')
@@ -29,6 +30,7 @@ const dentistasCollection = db.collection('dentistas')
 export {
     db,
     auth,
+    storage,
     usersCollection,
     pacientesCollection,
     dentistasCollection

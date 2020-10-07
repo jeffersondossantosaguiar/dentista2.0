@@ -15,39 +15,43 @@
 							>Enviar Arquivos</v-card-title
 						>
 						<v-card-text>
-							<v-file-input
-								v-model="files"
-								color="deep-purple accent-4"
-								counter
-								label="Selecione os arquivos"
-								multiple
-								outlined
-								dense
-								:show-size="1000"
-							>
-								<template v-slot:selection="{ index, text }">
-									<v-chip
-										v-if="index < 2"
-										color="deep-purple accent-4"
-										dark
-										label
-										small
+							<v-form ref="form" @submit.prevent>
+								<v-file-input
+									v-model="files"
+									color="deep-purple accent-4"
+									counter
+									label="Selecione os arquivos"
+									multiple
+									outlined
+									dense
+									:show-size="1000"
+								>
+									<template
+										v-slot:selection="{ index, text }"
 									>
-										{{ text }}
-									</v-chip>
+										<v-chip
+											v-if="index < 2"
+											color="deep-purple accent-4"
+											dark
+											label
+											small
+										>
+											{{ text }}
+										</v-chip>
 
-									<span
-										v-else-if="index === 2"
-										class="overline grey--text text--darken-3 mx-2"
-									>
-										+{{ files.length - 2 }} Arquivo(s)
-									</span>
-								</template>
-							</v-file-input>
+										<span
+											v-else-if="index === 2"
+											class="overline grey--text text--darken-3 mx-2"
+										>
+											+{{ files.length - 2 }} Arquivo(s)
+										</span>
+									</template>
+								</v-file-input>
+							</v-form>
 						</v-card-text>
 						<v-card-actions>
 							<v-spacer></v-spacer>
-							<v-btn color="error" text @click="dialog = false"
+							<v-btn color="error" text @click="closeDialog"
 								>Cancelar</v-btn
 							>
 							<v-btn color="success" text @click="uploadFiles()"
@@ -99,8 +103,7 @@
 </template>
 
 <script>
-import { db } from "@/config/firebase";
-import firebase from "firebase";
+import { pacientesCollection, storage } from "@/config/firebase";
 
 export default {
 	name: "patient-files",
@@ -110,20 +113,18 @@ export default {
 		dialog: false,
 		items2: "",
 		files: [],
-		urlFile: "google.com",
 	}),
 	created() {
 		this.listFiles();
 	},
 	methods: {
-		listFiles() {
-			let fileRef = db.collection("pacientes");
+		async listFiles() {
 			var items = [];
 			let iconType, iconTypeClass;
-			let files = fileRef
+			let files = pacientesCollection
 				.doc(this.$route.params.id)
 				.collection("arquivos");
-			files.get().then(function (querySnapshot) {
+			await files.get().then(function (querySnapshot) {
 				querySnapshot.forEach(function (doc) {
 					if (!Object.keys(doc.data()).length) {
 						return items;
@@ -160,11 +161,11 @@ export default {
 				});
 			});
 			this.items2 = items;
-			return this.items2
+			return this.items2;
 		},
-		uploadFiles() {
-			const storageRef = firebase.storage().ref();
-			this.files.forEach((file) => {
+		async uploadFiles() {
+			const storageRef = storage.ref();
+			await this.files.forEach((file) => {
 				const path = `patientFiles/${this.$route.params.id}/${file.name}`;
 				storageRef
 					.child(path)
@@ -179,8 +180,8 @@ export default {
 					});
 			});
 		},
-		createdFilesMeta(snapshot) {
-			db.collection("pacientes")
+		async createdFilesMeta(snapshot) {
+			await pacientesCollection
 				.doc(this.$route.params.id)
 				.collection("arquivos")
 				.add({
@@ -208,9 +209,9 @@ export default {
 					console.log(error);
 				});
 		},
-		downloadFile(metadata) {
-			const storageRef = firebase.storage().ref(metadata.path);
-			storageRef.getDownloadURL().then(function (url) {
+		async downloadFile(metadata) {
+			const storageRef = storage.ref(metadata.path);
+			await storageRef.getDownloadURL().then(function (url) {
 				fetch(url)
 					.then((resp) => resp.blob())
 					.then((blob) => {
@@ -224,11 +225,11 @@ export default {
 						window.URL.revokeObjectURL(url);
 					})
 					.catch((error) => console.log(error));
-			})
+			});
 		},
-		deleteFile(metadata, id) {
-			const storageRef = firebase.storage().ref(metadata.path);
-			db.collection("pacientes")
+		async deleteFile(metadata, id) {
+			const storageRef = storage.ref(metadata.path);
+			await pacientesCollection
 				.doc(this.$route.params.id)
 				.collection("arquivos")
 				.doc(id)
@@ -252,10 +253,14 @@ export default {
 				type: "success",
 				position: "top-right",
 				duration: 5000,
-			})
-			this.listFiles()
-		}
-	}
+			});
+			this.listFiles();
+		},
+		closeDialog() {
+			this.$refs.form.reset();
+			this.dialog = false;
+		},
+	},
 };
 </script>
 <style scoped>

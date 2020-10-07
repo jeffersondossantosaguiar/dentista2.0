@@ -12,7 +12,7 @@
 
 				<v-card-text>
 					<v-container>
-						<v-form v-model="valid" ref="form" @submit.prevent="onFormSubmit">
+						<v-form v-model="valid" ref="form" @submit.prevent>
 							<v-container>
 								<v-row>
 									<v-col cols="12" md="6">
@@ -93,7 +93,7 @@
 </template>
 
 <script>
-import { db } from "@/config/firebase";
+import { pacientesCollection } from "@/config/firebase";
 import axios from "axios";
 
 export default {
@@ -128,14 +128,14 @@ export default {
 		};
 	},
 	methods: {
-		onFormSubmit(event) {
+		onFormSubmit() {
 			this.paciente.cpf = this.paciente.cpf.replace(/[^0-9]/g, ""); //remove os caracteres especiais
 			this.paciente.endereco.cep = this.paciente.endereco.cep.replace(/[^0-9]/g, ""); //remove os caracteres especiais
-            event.preventDefault();
+
             if (!this.editedPatient) {
 				const dataCriacao = new Date()
 				this.paciente.dataCriacao = dataCriacao
-                db.collection("pacientes")
+                pacientesCollection
                     .add(this.paciente)
                     .then(() => {
                         this.$toast.open({
@@ -150,7 +150,7 @@ export default {
                         console.log(error);
                     });
             } else {
-                db.collection('pacientes').doc(this.$route.params.id)
+                pacientesCollection.doc(this.$route.params.id)
                     .update(this.paciente)
                     .then(() => {
                         this.$toast.open({

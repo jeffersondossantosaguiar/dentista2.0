@@ -11,7 +11,8 @@ const store = new Vuex.Store({
         userProfile: {},
         patients: []
     },
-    mutations: { //A única maneira de realmente mudar de estado em um store Vuex é fazer um commit da mutação. As mutações do Vuex são muito semelhantes aos eventos: cada mutação tem uma cadeia de caracteres tipo e um manipulador.
+    mutations: {
+        //A única maneira de realmente mudar de estado em um store Vuex é fazer um commit da mutação. As mutações do Vuex são muito semelhantes aos eventos: cada mutação tem uma cadeia de caracteres tipo e um manipulador.
         setUserProfile(state, val) {
             state.userProfile = val
         },
@@ -20,7 +21,7 @@ const store = new Vuex.Store({
         },
         setPatients(state, val) {
             state.patients = val
-          }
+        }
     },
     actions: {
         async login({ dispatch }, form) {
@@ -53,21 +54,21 @@ const store = new Vuex.Store({
             }
         },
         async getPacientes() {
-        // buscando os pacientes na base de dados e setando o array com os mesmos no store
-        await fb.pacientesCollection.onSnapshot((snapshotChange) => {
-            let patientArray = []
+            // buscando os pacientes na base de dados e setando o array com os mesmos no store
+            await fb.pacientesCollection.onSnapshot((snapshotChange) => {
+                let patientArray = []
 
-            snapshotChange.forEach((res) => {
-                patientArray.push({
-                    id: res.id,
-                    name: res.data().nome,
-                    phone: res.data().telefone,
-                    email: res.data().email
+                snapshotChange.forEach((res) => {
+                    patientArray.push({
+                        id: res.id,
+                        name: res.data().nome,
+                        phone: res.data().telefone,
+                        email: res.data().email
+                    })
                 })
+                store.commit("setPatients", patientArray)
             })
-            store.commit('setPatients', patientArray)
-        })
-    },
+        }
     }
 })
 

@@ -11,11 +11,7 @@
 							>Faça login em sua conta</v-card-subtitle
 						>
 						<v-card-text>
-							<v-form
-								v-model="valid"
-								ref="form"
-								@submit.prevent
-							>
+							<v-form v-model="valid" ref="form" @submit.prevent>
 								<!-- (.trim) remove emove os espaços em branco (whitespaces) do início e/ou fim de um texto -->
 								<v-text-field
 									v-model.trim="email"
@@ -61,8 +57,6 @@
 </template>
 
 <script>
-/* import firebase from "firebase"; */
-
 export default {
 	data: () => ({
 		email: "",
@@ -78,19 +72,10 @@ export default {
 	},
 	methods: {
 		login() {
-			this.$store.dispatch('login', {
-			email: this.email,
-			password: this.password
-		})
-			/* firebase
-				.auth()
-				.signInWithEmailAndPassword(this.email, this.password)
-				.then(() => {
-					this.$router.replace("/");
-				})
-				.catch((error) => {
-					console.log(error);
-				}); */
+			this.$store.dispatch("login", {
+				email: this.email,
+				password: this.password,
+			});
 		},
 	},
 };
