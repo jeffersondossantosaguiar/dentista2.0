@@ -70,7 +70,7 @@ export default {
 				icon: "mdi-tune",
 				children: [
 				{ 
-					text: "Dentistas", 
+					text: "Cirurgiões-Dentistas", 
 					path: "/configuracoes/dentistas", 
 				},
 				{ 

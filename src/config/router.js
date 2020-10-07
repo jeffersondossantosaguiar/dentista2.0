@@ -55,7 +55,7 @@ const routes = [
                 component: Settings,
                 children: [
                     {
-                        name: "Dentistas",
+                        name: "Cirurgiões-Dentistas",
                         path: "dentistas",
                         component: DentistsList,
                     },

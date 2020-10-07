@@ -1,5 +1,6 @@
 <template>
     <div class="dentists-list">
+        <DentistForm v-model="dialog" />
         <v-card>
             <v-card-title>
                 <v-text-field
@@ -20,6 +21,9 @@
                 :items="Dentists"
                 :search="search"
             >
+                <template v-slot:[`item.speciality`]="{ item }">
+                    <template v-for="speciality in item.speciality"><v-chip :key="speciality">{{speciality}}</v-chip></template>
+                </template>
                 <template v-slot:[`item.name`]="{ item }">
                     <v-avatar size="36">
                         <img
@@ -46,17 +50,19 @@
 </template>
 
 <script>
-import { db } from "@/config/firebase.js"
+import DentistForm from "./DentistForm"
+import { dentistasCollection } from "@/config/firebase.js"
 
 export default {
     name: "dentists-list",
+    components: {DentistForm},
     data() {
         return {
             dialog: false,
             search: "",
             headers: [
                 { text: "Nome", align: "start", sortable: true, value: "name" },
-                { text: "Especialidade", value: "speciality" },
+                { text: "Especialidade(s)", value: "speciality" },
                 { text: "Telefone", value: "phone", sortable: true },
                 { text: "E-mail", value: "email", sortable: true },
                 { text: "CRO", value: "cro" },
@@ -67,7 +73,7 @@ export default {
         }
     },
     async created() {
-        await db.collection("dentistas").onSnapshot((snapshotChange) => {
+        await dentistasCollection.onSnapshot((snapshotChange) => {
             this.Dentists = []
             snapshotChange.forEach((res) => {
                 this.Dentists.push({
