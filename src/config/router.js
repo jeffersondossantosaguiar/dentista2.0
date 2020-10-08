@@ -9,6 +9,7 @@ import PatientsList from "@/components/pages/patients/PatientsList.vue"
 import PatientView from "@/components/pages/patients/PatientView.vue"
 import Settings from "@/components/pages/settings/Settings.vue"
 import DentistsList from "@/components/pages/settings/dentists/DentistsList.vue"
+import DestistView from "@/components/pages/settings/dentists/DentistView.vue"
 import UsersList from "@/components/pages/settings/users/UsersList.vue"
 import Login from "@/components/auth/Login.vue"
 
@@ -58,6 +59,12 @@ const routes = [
                         name: "Cirurgiões-Dentistas",
                         path: "dentistas",
                         component: DentistsList,
+                    },
+                    {
+                        name: "Dentista",
+                        path: "dentistas/:id",
+                        component: DestistView,
+                        props: true,
                     },
                     {
                         name: "Usuários",

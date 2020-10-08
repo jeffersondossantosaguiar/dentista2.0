@@ -36,10 +36,10 @@
 									</v-col>
 								</v-row>
 								<v-row>
-									<v-col cols="12" md="7">
-										<v-select v-model="dentista.especialidade" multiple hint="Selecione uma ou mais especialidades" persistent-hint :items="especialidades" label="Especialidades"></v-select>
+									<v-col cols="12" md="8">
+										<v-select chips v-model="dentista.especialidade" multiple hint="Selecione uma ou mais especialidades" persistent-hint :items="especialidades" label="Especialidades"></v-select>
 									</v-col>
-									<v-col cols="12" md="3">
+									<v-col cols="12" md="2">
 										<v-text-field v-model="dentista.cro" label="Nº CRO"></v-text-field>
 									</v-col>
 									<v-col cols="12" md="2">
@@ -144,7 +144,9 @@ export default {
 	},
 	methods: {
 		onFormSubmit() {
-			this.dentista.cpf = this.dentista.cpf.replace(/[^0-9]/g, ""); //remove os caracteres especiais
+			if (this.dentista.cpf){
+				this.dentista.cpf = this.dentista.cpf.replace(/[^0-9]/g, ""); //remove os caracteres especiais
+			}
 			this.dentista.endereco.cep = this.dentista.endereco.cep.replace(/[^0-9]/g, ""); //remove os caracteres especiais
 
             if (!this.editedDentist) {
@@ -182,10 +184,7 @@ export default {
             }
 		},
 		async searchCep() {
-			this.dentista.endereco.cep = this.dentista.endereco.cep.replace(
-				/[^0-9]/g,
-				""
-			); //remove os caracteres especiais
+			this.dentista.endereco.cep = this.dentista.endereco.cep.replace(/[^0-9]/g,""); //remove os caracteres especiais
 			if (this.dentista.endereco.cep.length == 8) {
 				await axios
 					.get(
@@ -201,6 +200,24 @@ export default {
 			this.$emit("input");
 			if (!this.editedDentist) {
 				this.$refs.form.reset();
+				this.dentista = {
+				nome: "",
+				email: "",
+				cpf: "",
+				rg: "",
+				telefone: "",
+				especialidade: [],
+				cro: "",
+				croUf: "",
+				endereco: {
+					cep: "",
+					logradouro: "",
+					numero: "",
+					complemento: "",
+					bairro: "",
+					localidade: "",
+					uf: "SP",
+				},}
 			}
 		},
 	},

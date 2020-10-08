@@ -1,6 +1,6 @@
 <template>
 	<v-navigation-drawer v-model="drawer" :mini-variant="miniVariant" app>
-		<v-list-item two-line :class="miniVariant && 'px-0'">
+		<!-- <v-list-item two-line :class="miniVariant && 'px-0'">
 			<v-list-item-avatar>
 				<img :src="userProfile.avatar" />
 			</v-list-item-avatar>
@@ -9,7 +9,8 @@
 				<v-list-item-title>{{userProfile.nome}}</v-list-item-title>
 				<v-list-item-subtitle>{{userProfile.email}}</v-list-item-subtitle>
 			</v-list-item-content>
-		</v-list-item>
+		</v-list-item> -->
+		<v-img class="ma-5" src="../../assets/logo_dental.png"></v-img>
 		<v-divider></v-divider>
 		<v-list dense v-for="item in navLinks" :key="item.text">
 			<v-list-item v-if="!item.children" :to="item.path" color="primary">

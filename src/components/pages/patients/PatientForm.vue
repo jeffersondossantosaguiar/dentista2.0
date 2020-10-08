@@ -186,6 +186,22 @@ export default {
 			this.$emit("input");
 			if (!this.editedPatient) {
 				this.$refs.form.reset();
+				this.paciente = {
+					nome: "",
+					email: "",
+					cpf: "",
+					rg: "",
+					telefone: "",
+					endereco: {
+						cep: "",
+						logradouro: "",
+						numero: "",
+						complemento: "",
+						bairro: "",
+						localidade: "",
+						uf: "SP",
+					},
+				}
 			}
 		},
 	},

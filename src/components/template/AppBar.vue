@@ -12,8 +12,20 @@
 
 			<v-list>
 				<v-list-item>
+					<v-list-item-avatar>
+						<img :src="userProfile.avatar" />
+					</v-list-item-avatar>
+
+					<v-list-item-content>
+						<v-list-item-title>{{
+							userProfile.nome
+						}}</v-list-item-title>
+					</v-list-item-content>
+				</v-list-item>
+				<v-divider></v-divider>
+				<v-list-item>
 					<v-list-item-title>
-						<v-btn tile small @click="logout()">
+						<v-btn block tile small @click="logout()">
 							<v-icon left> mdi-logout-variant </v-icon>
 							Logout
 						</v-btn>
@@ -29,16 +41,16 @@ import { mapState, mapMutations } from "vuex";
 
 export default {
 	computed: {
-		...mapState(["drawer"]),
+		...mapState(["drawer","userProfile"]),
 	},
 	methods: {
 		...mapMutations({
 			setDrawer: "SET_DRAWER",
 		}),
 		logout() {
-			this.$store.dispatch('logout')
-		}
-	}
+			this.$store.dispatch("logout");
+		},
+	},
 };
 </script>
 
