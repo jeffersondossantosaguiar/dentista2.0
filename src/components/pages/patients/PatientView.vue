@@ -248,13 +248,11 @@ export default {
 .v-timeline {
 	height: 300px;
 	overflow-y: auto;
+	padding-right: 20px;
 }
 .files-list {
 	height: 250px;
 	overflow-y: auto;
-}
-.v-timeline {
-	padding-right: 20px;
 }
 .v-card-title {
 	font-size: 0.9em;

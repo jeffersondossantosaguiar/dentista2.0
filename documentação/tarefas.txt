@@ -1,6 +1,6 @@
 *GERAL
-	- Criar um local unico de acesso a API/Banco
 	- Fatorar funcionabilidades do APP (Dividir o que for possivel em micro services).
+	- Colocar em todos os cadastros o id do usuário que criou
 
 *Pacient List
 	- Implementar paginação na listagem

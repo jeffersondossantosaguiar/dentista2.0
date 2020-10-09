@@ -49,6 +49,8 @@
                         @click:event="showEvent"
                         @click:more="viewDay"
                         @click:date="viewDay"
+                        @click:day="viewDay"
+                        @click:time="viewTime"
                         @change="updateRange"
                         :weekdays="weekday"
                     ></v-calendar>
@@ -111,7 +113,11 @@ export default {
       this.$refs.calendar.checkChange()
     },
     methods: {
+      viewTime (event) {
+        console.log("Teste", event.time);
+      },
       viewDay ({ date }) {
+        console.log("Teste", date);
         this.focus = date
         this.type = 'day'
       },
