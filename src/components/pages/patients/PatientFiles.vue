@@ -6,8 +6,8 @@
 				<v-spacer></v-spacer>
 				<v-dialog v-model="dialog" persistent width="500">
 					<template v-slot:activator="{ on, attrs }">
-						<v-btn text color="primary" v-bind="attrs" v-on="on">
-							Upload
+						<v-btn text small color="primary" v-bind="attrs" v-on="on">
+							<v-icon dark>mdi-cloud-upload</v-icon>
 						</v-btn>
 					</template>
 					<v-card justify="center">

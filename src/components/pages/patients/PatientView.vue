@@ -3,12 +3,22 @@
 		<PatientForm v-model="dialog" :editedPatient="editedPatient" />
 		<v-container class="d-flex text-center align-self-center">
 			<v-spacer></v-spacer>
-			<v-btn text small color="primary">
-				<v-icon>mdi-printer</v-icon>
-			</v-btn>
-			<v-btn text small color="primary" @click="editPatient(paciente)">
-				<v-icon>mdi-account-edit</v-icon>Editar Paciente
-			</v-btn>
+			<v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn text small color="primary" v-bind="attrs" v-on="on">
+                        <v-icon>mdi-printer</v-icon>
+                    </v-btn>
+                </template>
+                <span>Imprimir Ficha</span>
+            </v-tooltip>
+			<v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn text small color="primary" @click="editDentist(paciente)" v-bind="attrs" v-on="on">
+                        <v-icon>mdi-account-edit</v-icon>
+                    </v-btn>
+                </template>
+                <span>Editar Paciente</span>
+            </v-tooltip>
 		</v-container>
 		<v-row>
 			<v-col class="padding-right-0px" cols="12" md="3">

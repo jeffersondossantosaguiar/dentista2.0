@@ -1,14 +1,33 @@
 <template>
     <v-container class="dentist-view">
         <DentistForm v-model="dialog" :editedDentist="editedDentist" />
+        <DentistAvailabilityForm v-model="dialog2" :editedDentist="editedDentist" />
         <v-container class="d-flex text-center align-self-center">
             <v-spacer></v-spacer>
-            <v-btn text small color="primary">
-                <v-icon>mdi-printer</v-icon>
-            </v-btn>
-            <v-btn text small color="primary" @click="editDentist(dentista)">
-                <v-icon>mdi-account-edit</v-icon>Editar Dentista
-            </v-btn>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn text small color="primary" v-bind="attrs" v-on="on">
+                        <v-icon>mdi-printer</v-icon>
+                    </v-btn>
+                </template>
+                <span>Imprimir Ficha</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn text small color="primary" @click="editDentist(dentista)" v-bind="attrs" v-on="on">
+                        <v-icon>mdi-account-edit</v-icon>
+                    </v-btn>
+                </template>
+                <span>Editar Dentista</span>
+            </v-tooltip>
+            <v-tooltip bottom>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-btn text small color="primary" v-bind="attrs" v-on="on">
+                        <v-icon>mdi-account-cancel</v-icon>
+                    </v-btn>
+                </template>
+                <span>Desativar Dentista</span>
+            </v-tooltip>
         </v-container>
         <v-row>
             <v-col class="padding-right-0px" cols="12" md="3">
@@ -127,19 +146,27 @@
         <v-row>
             <v-col cols="12" md="12">
                 <v-card class="v-card-min-height">
-                    <v-card-title>Disponibilidade</v-card-title>
+                    <v-card-title>
+                        Disponibilidade
+                        <v-spacer></v-spacer>
+                        <v-tooltip bottom>
+                            <template v-slot:activator="{ on, attrs }">
+                                <v-btn text small color="primary" v-bind="attrs" v-on="on" @click="editAvailabilityDentist(dentista)">
+                                    <v-icon>mdi-calendar-clock</v-icon>
+                                </v-btn>
+                            </template>
+                            <span>Editar Disponibilidade</span>
+                        </v-tooltip>
+                    </v-card-title>
 
                     <v-data-table
                         :headers="headers"
-                        :items="desserts"
+                        :items="availability"
                         :hide-default-footer="true"
                     >
                         <template v-slot:[`item.disabled`]="{ item }">
-							<v-simple-checkbox
-								v-model="item.disabled"
-								disabled
-							></v-simple-checkbox>
-						</template>
+                            <v-simple-checkbox v-model="item.disabled" disabled></v-simple-checkbox>
+                        </template>
                     </v-data-table>
                 </v-card>
             </v-col>
@@ -148,12 +175,13 @@
 </template>
 
 <script>
-import { dentistasCollection } from "@/config/firebase";
-import DentistForm from "./DentistForm";
+import { dentistasCollection } from "@/config/firebase"
+import DentistForm from "./DentistForm"
+import DentistAvailabilityForm from "./DentistAvailabilityForm"
 
 export default {
     name: "dentist-view",
-    components: { DentistForm },
+    components: { DentistForm, DentistAvailabilityForm },
     data: () => ({
         dentista: {
             nome: "",
@@ -177,6 +205,7 @@ export default {
         time: null,
         menu2: false,
         dialog: false,
+        dialog2: false,
         editedDentist: null,
         files: {},
         headers: [
@@ -184,70 +213,78 @@ export default {
                 text: "Dias",
                 align: "start",
                 sortable: false,
-				value: "day",
+                value: "day",
             },
             { text: "Entrada", value: "start", sortable: false },
-            { text: "Intervalo Inicio", value: "breakTimeStart", sortable: false },
-            { text: "Intervalo Volta", value: "breakTimeEnda", sortable: false },
+            {
+                text: "Intervalo Inicio",
+                value: "breakTimeStart",
+                sortable: false,
+            },
+            {
+                text: "Intervalo Volta",
+                value: "breakTimeEnda",
+                sortable: false,
+            },
             { text: "Saida", value: "end", sortable: false },
             { text: "Folga", value: "disabled", sortable: false },
         ],
-        desserts: [
+        availability: [
             {
                 day: "Domingo",
-                start: '-',
-                breakTimeStart: '-',
-                breakTimeEnda: '-',
-				end: '-',
-				disabled: true
+                start: "-",
+                breakTimeStart: "-",
+                breakTimeEnda: "-",
+                end: "-",
+                disabled: true,
             },
             {
                 day: "Segunda",
-                start: '08:00',
-                breakTimeStart: '12:00',
-                breakTimeEnda: '14:00',
-				end: '18:00',
-				disabled: false
+                start: "08:00",
+                breakTimeStart: "12:00",
+                breakTimeEnda: "14:00",
+                end: "18:00",
+                disabled: false,
             },
             {
                 day: "Terça",
-                start: '08:00',
-                breakTimeStart: '12:00',
-                breakTimeEnda: '14:00',
-				end: '18:00',
-				disabled: false
+                start: "08:00",
+                breakTimeStart: "12:00",
+                breakTimeEnda: "14:00",
+                end: "18:00",
+                disabled: false,
             },
             {
                 day: "Quarta",
-                start: '08:00',
-                breakTimeStart: '12:00',
-                breakTimeEnda: '14:00',
-				end: '18:00',
-				disabled: false
+                start: "08:00",
+                breakTimeStart: "12:00",
+                breakTimeEnda: "14:00",
+                end: "18:00",
+                disabled: false,
             },
             {
                 day: "Quinta",
-                start: '08:00',
-                breakTimeStart: '12:00',
-                breakTimeEnda: '14:00',
-				end: '18:00',
-				disabled: false
+                start: "08:00",
+                breakTimeStart: "12:00",
+                breakTimeEnda: "14:00",
+                end: "18:00",
+                disabled: false,
             },
             {
                 day: "Sexta",
-                start: '08:00',
-                breakTimeStart: '12:00',
-                breakTimeEnda: '14:00',
-				end: '18:00',
-				disabled: false
+                start: "08:00",
+                breakTimeStart: "12:00",
+                breakTimeEnda: "14:00",
+                end: "18:00",
+                disabled: false,
             },
             {
                 day: "Sabado",
-                start: '08:00',
-                breakTimeStart: '-',
-                breakTimeEnda: '-',
-				end: '12:00',
-				disabled: false
+                start: "08:00",
+                breakTimeStart: "-",
+                breakTimeEnda: "-",
+                end: "12:00",
+                disabled: false,
             },
         ],
     }),
@@ -272,6 +309,10 @@ export default {
         editDentist(dentista) {
             this.editedDentist = dentista;
             this.dialog = !this.dialog;
+        },
+        editAvailabilityDentist(dentista) {
+            this.editedDentist = dentista;
+            this.dialog2 = !this.dialog2;
         },
     },
 };
