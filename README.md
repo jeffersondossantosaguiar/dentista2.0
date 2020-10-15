@@ -1,5 +1,8 @@
-# dentista-2.0
-Projeto dentista
+# APP Dentista
+Projeto em andamento de App para gerenciamento de consultório odontológico.
+
+## Motivação
+Projeto para colocar em pratica o aprendizado em Vue JS
 
 ## Project setup
 ```
