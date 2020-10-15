@@ -1,0 +1,37 @@
+import * as firebase from "firebase"
+import 'firebase/auth'
+import 'firebase/firestore'
+
+// firebase init
+const firebaseConfig = {
+    apiKey: "",
+    authDomain: "",
+    databaseURL: "",
+    projectId: "",
+    storageBucket: "",
+    messagingSenderId: "",
+    appId: "",
+    measurementId: ""
+}
+
+firebase.initializeApp(firebaseConfig)
+
+//utils
+const db = firebase.firestore()
+const auth = firebase.auth()
+const storage = firebase.storage()
+
+//Referencias das coleções
+const usersCollection = db.collection('users')
+const pacientesCollection = db.collection('pacientes')
+const dentistasCollection = db.collection('dentistas')
+
+
+export {
+    db,
+    auth,
+    storage,
+    usersCollection,
+    pacientesCollection,
+    dentistasCollection
+}
