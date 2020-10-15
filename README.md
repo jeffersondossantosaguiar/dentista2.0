@@ -2,7 +2,18 @@
 Projeto em andamento de App para gerenciamento de consultório odontológico, consutas, pacientes, agendamento etc... 
 
 ## Motivação
-Projeto para colocar em pratica o aprendizado em Vue JS
+Projeto para colocar em pratica o aprendizado em Vue JS - Javascript
+
+## Ferramentas usadas
+* Vue JS
+  * Vue Router
+  * Vuex
+* Vuetify
+* Firebase
+  * Firebase Auth
+  * Firebase Cloud Firestore
+* Axios
+
 
 ## Project setup
 ```
